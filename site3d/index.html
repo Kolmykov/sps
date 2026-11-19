@@ -1,0 +1,146 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPS Group — персонал для бизнеса в Воронеже</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+/* SPS · светлый вариант: каркас Creatix (скруглённые блоки, список услуг с номерами),
+   3D-предметы как в Nexora, смысл из сюжета A: каждая фигура на своём месте. */
+:root{--g:#09CB2C;--ink:#141211;--mute:#5f5b56;--bg:#E7E5E0;--card:#F3F2EE;--line:rgba(20,18,17,.12);--pad:clamp(16px,1.4vw,24px);--r:clamp(24px,2vw,36px);--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:18px;line-height:1.45;padding:var(--pad)}
+a{color:inherit;text-decoration:none}
+.blk{background:var(--card);border-radius:var(--r);position:relative;overflow:hidden;max-width:1880px;margin:0 auto var(--pad)}
+.lab{font:12px/1.5 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+.ttl{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+.btn{display:inline-flex;align-items:center;gap:14px;background:var(--g);color:var(--ink);padding:8px 8px 8px 26px;border-radius:999px;font-size:17px;font-weight:500;transition:transform .3s var(--ease)}
+.btn i{width:44px;height:44px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.btn i:after{content:'';width:10px;height:10px;border-top:2px solid #fff;border-right:2px solid #fff;transform:translateX(-2px) rotate(45deg)}
+.btn:hover{transform:translateY(-2px)}
+.btn.k{background:var(--ink);color:#fff}.btn.k i{background:var(--g)}.btn.k i:after{border-color:var(--ink)}
+/* 1 ПЕРВЫЙ ЭКРАН */
+.hero{height:calc(100vh - 2*var(--pad));min-height:720px;max-height:1060px}
+#pz{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nav{position:absolute;z-index:3;top:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;background:var(--ink);color:#fff;border-radius:999px;padding:6px;font-size:15px;white-space:nowrap}
+.nav a{padding:10px 18px;border-radius:999px;transition:background .2s}
+.nav a:hover{background:rgba(255,255,255,.1)}
+.nav .logo{display:flex;align-items:center;gap:6px;font-weight:600;font-size:19px;padding:8px 22px}
+.nav .logo i{display:inline-block;border-radius:50%;background:#fff}
+.nav .logo i:last-of-type{background:var(--g)}
+.htx{position:absolute;z-index:2;left:clamp(32px,3.4vw,64px);bottom:clamp(40px,7vh,88px);width:min(44%,720px)}
+.htx h1{font-size:clamp(80px,7.6vw,146px);line-height:1.08}
+.htx p{margin-top:26px;font-size:clamp(18px,1.25vw,22px);max-width:27em;color:var(--mute)}
+.htx .btn{margin-top:30px}
+.hst{position:absolute;z-index:2;right:clamp(32px,3.4vw,64px);top:110px;text-align:right}
+.hst b{display:block;font:500 15px 'JetBrains Mono',monospace;margin-top:6px;transition:color .3s}
+.hst b.ok{color:var(--ink)}
+.hst b.ok:before{content:'';display:inline-block;width:10px;height:10px;background:var(--g);margin-right:8px}
+/* 2 НАПРАВЛЕНИЯ */
+.srv{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,3vw,56px);padding:clamp(40px,4.4vw,80px) clamp(32px,3.4vw,64px)}
+.srv h2{font-size:clamp(56px,5vw,96px);margin:14px 0 36px}
+.sl{list-style:none;border-top:1px solid var(--line)}
+.sl li{position:relative;border-bottom:1px solid var(--line)}
+.sl button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:64px 1fr;align-items:baseline;row-gap:6px;width:100%;padding:30px 0 30px 0;transition:transform .35s var(--ease)}
+.sl span{font:14px 'JetBrains Mono',monospace;color:var(--mute)}
+.sl b{font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(28px,2.3vw,42px);text-transform:uppercase;line-height:1.05;opacity:.36;transition:opacity .3s}
+.sl em{grid-column:2;font-style:normal;font-size:16px;color:var(--mute);opacity:.6;transition:opacity .3s}
+.sl li.on button{transform:translateX(18px)}
+.sl li.on b{opacity:1}.sl li.on em{opacity:1}
+.sl li.on:before{content:'';position:absolute;left:0;top:30px;bottom:30px;width:4px;background:var(--g)}
+.sc{background:#fff;border-radius:calc(var(--r) - 8px);overflow:hidden;display:flex;flex-direction:column;align-self:start;position:sticky;top:var(--pad)}
+.sc .im{position:relative;aspect-ratio:4/3;background:#EFEDE8;overflow:hidden}
+.sc .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;opacity:0;transform:scale(1.06);transition:opacity .5s,transform .9s var(--ease)}
+.sc .im img.on{opacity:1;transform:none}
+.sc .bd{padding:28px 30px 30px}
+.sc h3{font-size:clamp(30px,2.2vw,40px)}
+.sc p{margin-top:12px;color:var(--mute)}
+.sc ul{list-style:none;margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.sc li{font-size:15px;padding:7px 14px;border-radius:999px;background:var(--card)}
+.sc .btn{margin-top:24px}
+</style></head><body>
+
+<!-- 1 ПЕРВЫЙ ЭКРАН: компания собрана как пазл, одной детали не хватает. Зелёная деталь от SPS встаёт на место. -->
+<section class="blk hero" id="hero">
+<canvas id="pz" aria-hidden="true"></canvas>
+<nav class="nav"><a href="#uslugi">Услуги</a><a href="#cena">Стоимость</a><a href="#kak">Как&nbsp;работаем</a><a class="logo" href="#hero" aria-label="SPS Group"><i style="width:7px;height:7px"></i><i style="width:10px;height:10px"></i><i style="width:13px;height:13px"></i>&nbsp;SPS</a><a href="#o-nas">О&nbsp;компании</a><a href="#rabota">Работа в&nbsp;SPS</a><a href="tel:+74732296544">+7 473 229-65-44</a></nav>
+<div class="htx"><h1 class="ttl">Нужны люди?<br>Найдём.</h1><p>Подбор, персонал на&nbsp;смену, клининг и&nbsp;кадровый консалтинг в&nbsp;Воронеже. Освободилось место в&nbsp;команде, закрываем его мы.</p><a class="btn" href="#zayavka">Обсудить задачу<i></i></a></div>
+<p class="hst lab" aria-live="polite">Ваша команда<b id="hs">Одно место свободно</b></p>
+</section>
+
+<!-- 2 НАПРАВЛЕНИЯ: выбор слева меняет предмет, задачу и состав услуг справа -->
+<section class="blk srv" id="uslugi">
+<div><p class="lab">С&nbsp;чем к&nbsp;нам приходят</p><h2 class="ttl">Что возьмём<br>на&nbsp;себя</h2>
+<ol class="sl" id="sl">
+<li class="on"><button type="button"><span>01</span><b>Подбор персонала</b><em>Специалисты, руководители, массовый и&nbsp;промышленный набор</em></button></li>
+<li><button type="button"><span>02</span><b>Предоставление персонала</b><em>Люди на&nbsp;смену: склад, торговля, гостиницы</em></button></li>
+<li><button type="button"><span>03</span><b>Коммерческий клининг</b><em>Организация уборки и&nbsp;аудит</em></button></li>
+<li><button type="button"><span>04</span><b>Консалтинг</b><em>Оценка, мотивация, кадровые процессы, эксперты</em></button></li>
+</ol></div>
+<article class="sc" aria-live="polite"><div class="im"><img class="on" src="img/o-podbor.jpg" alt="Зелёный король среди чёрных пешек"><img src="img/o-personal.jpg" alt="Зелёная каска на ящиках"><img src="img/o-klining.jpg" alt="Распылитель и швабра"><img src="img/o-konsalting.jpg" alt="Шестерёнки и растущий график"></div>
+<div class="bd"><h3 class="ttl" id="sh"></h3><p id="sp"></p><ul id="su"></ul><a class="btn" id="sb" href="#cena">Рассчитать стоимость<i></i></a></div></article>
+</section>
+
+<script src="three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---------- 3D-пазл ---------- */
+THREE.ColorManagement.legacyMode=false;
+const cv=$('#pz'),R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.outputEncoding=THREE.sRGBEncoding;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+const S=new THREE.Scene(),cam=new THREE.PerspectiveCamera(36,1,.1,200);
+/* мягкая студия для бликов: комната и три софтбокса */
+(function(){const e=new THREE.Scene(),room=new THREE.Mesh(new THREE.BoxGeometry(20,12,20),new THREE.MeshBasicMaterial({color:0x8a8782,side:THREE.BackSide}));e.add(room);
+ const lamp=(w,h,x,y,z,k)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(k,k,k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);e.add(m)};
+ lamp(9,4,-5,6.5,3,4.2);lamp(2,9,8,2.5,-2,2.4);lamp(12,1.4,0,1.6,9.5,2.2);
+ S.environment=new THREE.PMREMGenerator(R).fromScene(e,.035).texture})();
+const sun=new THREE.DirectionalLight(0xffffff,.9);sun.position.set(-4,10,5);sun.castShadow=true;Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8});sun.shadow.mapSize.set(2048,2048);sun.shadow.radius=8;S.add(sun);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:.16}));ground.rotation.x=-Math.PI/2;ground.position.y=-.06;ground.receiveShadow=true;S.add(ground);
+const C=6,Rw=5,GAP={c:1,r:3};
+/* стыки: +1 выступ вверх или вправо, -1 наоборот */
+const H=[],V=[];for(let r=0;r<=Rw;r++){H[r]=[];V[r]=[];for(let c=0;c<=C;c++){H[r][c]=Math.random()<.5?1:-1;V[r][c]=Math.random()<.5?1:-1}}
+function edge(p,P,Q,s){const dx=Q[0]-P[0],dy=Q[1]-P[1],nx=dy,ny=-dx;if(!s){p.lineTo(Q[0],Q[1]);return}
+ const M=(t,n)=>[P[0]+dx*t+nx*n*s,P[1]+dy*t+ny*n*s],L=(t,n)=>p.lineTo(...M(t,n)),B=(a,b,c)=>p.bezierCurveTo(...M(...a),...M(...b),...M(...c));
+ L(.35,0);B([.41,0],[.43,.05],[.39,.11]);B([.34,.2],[.41,.28],[.5,.28]);B([.59,.28],[.66,.2],[.61,.11]);B([.57,.05],[.59,0],[.65,0]);L(1,0)}
+function piece(c,r){const s=new THREE.Shape();s.moveTo(0,0);
+ edge(s,[0,0],[1,0],r>0?-H[r][c]:0);edge(s,[1,0],[1,1],c<C-1?V[r][c+1]:0);edge(s,[1,1],[0,1],r<Rw-1?H[r+1][c]:0);edge(s,[0,1],[0,0],c>0?-V[r][c]:0);
+ const g=new THREE.ExtrudeGeometry(s,{depth:.2,bevelEnabled:true,bevelThickness:.07,bevelSize:.045,bevelSegments:8,curveSegments:24});
+ g.translate(-.5,-.5,0);g.scale(.935,.935,1);g.rotateX(-Math.PI/2);return g}
+const mBlack=new THREE.MeshStandardMaterial({color:0x141414,roughness:.24,metalness:0,envMapIntensity:1.1}),
+      mGreen=new THREE.MeshStandardMaterial({color:0x09CB2C,roughness:.42,metalness:0,envMapIntensity:.9});
+const board=new THREE.Group();S.add(board);const pieces=[];let green;
+for(let r=0;r<Rw;r++)for(let c=0;c<C;c++){const g=piece(c,r),m=new THREE.Mesh(g,(c===GAP.c&&r===GAP.r)?mGreen:mBlack);
+ m.position.set(c-(C-1)/2,0,-(r-(Rw-1)/2));m.castShadow=m.receiveShadow=true;board.add(m);
+ if(c===GAP.c&&r===GAP.r)green=m;else pieces.push(m)}
+const slot=green.position.clone();
+function size(){const w=cv.clientWidth,h=cv.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;
+ cam.position.set(-2.3,5.4,7.4);cam.lookAt(0,0,0);cam.setViewOffset(w,h,-w*.25,-h*.07,w,h);cam.updateProjectionMatrix()}
+board.rotation.y=-.5;board.position.set(1.4,0,.2);
+size();addEventListener('resize',size);
+/* сценарий: деталь ждёт над пустым местом, потом встаёт на место, соседние детали чуть проседают от «щелчка» */
+const hs=$('#hs');let t0=-1,state='wait';
+const ease=t=>t*t*t,out=t=>1-Math.pow(1-t,3);
+function restart(){t0=-1;state='wait';hs.textContent='Одно место свободно';hs.classList.remove('ok')}
+let mx=0,my=0,tx=0,ty=0;addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5});
+let vis=true;new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!vis)restart();vis=e.isIntersecting})).observe($('#hero'));
+const FREEZE=location.hash==='#wait';
+function frame(ms){const now=ms/1000;if(t0<0)t0=now;const t=FREEZE?1.2:now-t0;
+ if(state==='wait'){const k=Math.min(t/1,1);green.position.set(slot.x-.35,1.55-.2*out(k)+Math.sin(now*2.2)*.06,slot.z+.25);green.rotation.set(.18,.0,-.22);if(t>2.2){state='drop';t0=now}}
+ else if(state==='drop'){const k=Math.min(t/.5,1),e=ease(k);green.position.set(slot.x-.35*(1-e),1.35*(1-e),slot.z+.25*(1-e));green.rotation.set(.18*(1-e),0,-.22*(1-e));
+  if(k>=1){state='click';t0=now;hs.textContent='Место занято. Закрыли мы';hs.classList.add('ok')}}
+ else if(state==='click'){const k=Math.min(t/.6,1);green.position.y=Math.sin(k*Math.PI)*.05*(1-k);
+  pieces.forEach(p=>{const d=p.position.distanceTo(slot);p.position.y=-Math.sin(Math.max(0,k*3-d*.5)*Math.PI)*.03*(d<3.2?1:0)*(1-k)});if(k>=1){state='done';pieces.forEach(p=>p.position.y=0)}}
+ mx+=(tx-mx)*.05;my+=(ty-my)*.05;board.rotation.y=-.5+mx*.08;board.rotation.x=my*.04;
+ R.render(S,cam);requestAnimationFrame(frame)}
+if(RM){green.position.copy(slot);hs.textContent='Место занято. Закрыли мы';hs.classList.add('ok');R.render(S,cam);addEventListener('resize',()=>R.render(S,cam))}else requestAnimationFrame(frame);
+
+/* ---------- направления ---------- */
+const SV=[
+ {h:'Вакансия висит месяцами',p:'Ищем специалистов, руководителей и рабочих. Вы получаете кандидатов, которых мы уже проверили, и выбираете из них.',u:['Специалисты и руководители','Массовый рекрутинг','Прямой поиск (executive search)','Промышленный рекрутинг','Финансовый рекрутинг','Аутсорсинг рекрутинга'],b:['Рассчитать подбор','#cena']},
+ {h:'Не хватает рук на смену',p:'Выводим людей на ваш объект. Наём, документы и замены на нашей стороне, вы платите за отработанное время.',u:['Производство, склад, логистика','Торговля','Гостиницы, санатории, базы отдыха','Вывод персонала за штат (аутстаффинг)','Сопровождение КДО, ВУ и охраны труда'],b:['Рассчитать персонал','#cena']},
+ {h:'Уборка без контроля',p:'Организуем уборку вашего объекта или проверим, как она устроена сейчас, и скажем, что изменить.',u:['Организация клининга','Аудит клининговых процессов'],b:['Обсудить объект','#zayavka']},
+ {h:'В кадрах нет порядка',p:'Оцениваем людей и процессы, настраиваем оплату так, чтобы людям было выгодно работать лучше.',u:['Оценка персонала','Мотивация и оплата труда','Оценка и оптимизация кадровых процессов','Экспертная группа'],b:['Обсудить задачу','#zayavka']}];
+const nb=s=>s.replace(/ (в|и|с|к|на|за|по|о|а|не|из|от|до|для|без) /g,' $1 ');
+function pick(i){$$('#sl li').forEach((l,j)=>l.classList.toggle('on',i===j));$$('.sc .im img').forEach((m,j)=>m.classList.toggle('on',i===j));
+ const d=SV[i];$('#sh').textContent=nb(d.h);$('#sp').textContent=nb(d.p);$('#su').innerHTML=d.u.map(x=>'<li>'+x+'</li>').join('');
+ const b=$('#sb');b.firstChild.textContent=d.b[0];b.href=d.b[1]}
+$$('#sl button').forEach((b,i)=>{b.addEventListener('click',()=>pick(i));b.addEventListener('mouseenter',()=>pick(i))});pick(0);
+</script></body></html>
