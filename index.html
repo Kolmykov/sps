@@ -1,0 +1,525 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SPS Group — персонал для бизнеса в Воронеже</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--g:#09CB2C;--ink:#141211;--mute:#5a5753;--paper:#F2F1EE;--line:rgba(20,18,17,.14);--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter Tight',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit}
+.in{max-width:1440px;margin:0 auto;padding:0 64px}
+.lab{font:400 13px 'JetBrains Mono';letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.h2{font:800 clamp(56px,5.6vw,92px)/.92 'Inter Tight';letter-spacing:-.05em;text-transform:uppercase;margin-top:18px}
+/* заголовки поднимаются по словам */
+.wd{display:inline-block;overflow:hidden;vertical-align:top;padding:.14em 0 .1em;margin:-.14em 0 -.1em}
+.wd>i{display:inline-block;font-style:normal;transform:translateY(108%);transition:transform .75s cubic-bezier(0,0,.38,.9)}
+.on .wd>i{transform:none}
+/* бегущая строка: где работают наши люди; скорость и направление от прокрутки */
+.mq{margin-top:0;padding:34px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap}
+.mq .lab{display:block;max-width:1440px;margin:0 auto 18px;padding:0 64px}
+.mq .tr{display:inline-flex;will-change:transform}
+.mq span{font:800 clamp(44px,4.2vw,72px)/1 'Inter Tight';letter-spacing:-.045em;text-transform:uppercase;padding-right:.5em;display:inline-flex;align-items:center;gap:.5em}
+.mq span:after{content:"";width:.32em;height:.32em;border-radius:50%;background:var(--g)}
+.lead{font:500 22px/1.38 'Inter Tight';max-width:560px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:22px 38px;font:600 18px 'Inter Tight';cursor:pointer;transition:transform .2s var(--ease);white-space:nowrap}
+.btn:hover{transform:translateY(-3px)}
+.btn.g{background:var(--g);color:var(--ink)}.btn.k{background:var(--ink);color:#fff}
+.btn:focus-visible,.tasks button:focus-visible,.pill:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.lnk{font:600 18px 'Inter Tight';border-bottom:3px solid var(--g);padding-bottom:3px}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.on.rv,.on .rv{opacity:1;transform:none}
+section{padding:150px 0 0}
+
+/* 1 первый экран */
+.hero{position:relative;height:100vh;min-height:720px;max-height:1080px;padding:0;overflow:hidden}
+.hero .w{max-width:1920px;margin:0 auto;height:100%;position:relative;padding:0 clamp(32px,3vw,56px)}
+.hd{height:92px;display:flex;align-items:center;gap:44px;border-bottom:1px solid var(--line);position:relative;z-index:6;font:500 16px 'Inter Tight'}
+.hd b{font:800 28px 'Inter Tight';letter-spacing:-.04em;margin-right:auto}
+.hd b small{font:400 13px 'JetBrains Mono';letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-left:14px}
+.hd .tel{font:600 18px 'Inter Tight'}
+h1{position:relative;z-index:2;font-weight:800;text-transform:uppercase;letter-spacing:-.055em;line-height:.86;font-size:clamp(84px,8vw,150px);margin-top:3.4vh;white-space:nowrap}
+h1 span.l{display:block;overflow:hidden;padding:.1em 0 .06em}
+h1 span.l i{display:block;font-style:normal;transform:translateY(110%);transition:transform .9s var(--ease)}
+.go h1 span.l i{transform:none}
+h1 .l2 i{transition-delay:.14s}
+h1 .l2{padding-left:5%}
+h1 .l3{padding-left:9%;padding-top:.26em;margin-top:-.08em}
+/* должность в заголовке меняется вместе с человеком справа */
+.roll{position:relative;display:inline-block;vertical-align:top;height:1em;overflow:hidden;padding:0;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.roll b{position:absolute;left:0;top:0;font-weight:800;white-space:nowrap;transform:translateY(105%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.roll b.now{transform:none}.roll b.gone{transform:translateY(-105%)}
+.roll u{visibility:hidden;text-decoration:none;white-space:nowrap}
+/* портрет человека под выбранную задачу: рамка стоит между заголовком и списком задач */
+#pc{position:absolute;z-index:1;left:59%;top:128px;width:calc(41% - clamp(32px,3vw,56px) - 250px);height:calc(100% - 128px);background:#dedcd7;opacity:0;transition:opacity .5s}
+.go #pc{opacity:1}
+.low{position:absolute;left:clamp(32px,3vw,56px);bottom:48px;z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:28px}
+.low .lead{max-width:470px}
+.tasks{position:absolute;z-index:5;right:clamp(32px,3vw,56px);bottom:48px;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.tasks .lab{margin-bottom:10px}
+.tasks button{font:500 17px 'Inter Tight';background:none;border:0;padding:6px 0;color:var(--mute);cursor:pointer;position:relative}
+.tasks button.on{color:var(--ink)}
+.tasks button:after{content:"";position:absolute;right:0;bottom:2px;height:3px;width:100%;border-radius:9px;background:var(--g);transform:scaleX(0);transform-origin:right}
+.tasks button.on:after{animation:t 4.6s linear forwards}
+@keyframes t{to{transform:scaleX(1)}}
+
+.mf{padding:150px 0 0}
+.mt{margin-top:26px;font:600 clamp(40px,4vw,68px)/1.12 'Inter Tight';letter-spacing:-.04em;max-width:1240px}
+.mt span{color:rgba(20,18,17,.16);transition:color .25s}
+.mt span.lit{color:var(--ink)}
+/* переход светлое → тёмное: клетки заполняются при прокрутке, как люди занимают места */
+.pxe{position:relative;height:120px;margin-top:150px;z-index:1}
+.pxe canvas{position:absolute;inset:0;width:100%;height:100%}
+.pxe.dn{margin-top:0}
+/* 2 задачи: колода из пяти задач поверх гигантского «ЗАДАЧИ»; прокрутка листает колоду */
+.dark{background:var(--ink);color:var(--paper)}
+.dark .lab{color:rgba(242,241,238,.6)}
+.dk{padding:0}
+.zpin{height:340vh;position:relative}
+.zst{position:sticky;top:0;height:100vh;overflow:hidden}
+.ztop{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:baseline;padding-top:56px}
+.zc{font:400 15px 'JetBrains Mono';color:rgba(242,241,238,.6)}.zc b{font-weight:400;color:var(--paper)}
+.deck{position:absolute;left:50%;top:54%;width:0;height:0;z-index:2}
+.cd{position:absolute;left:0;top:0;width:min(1120px,74vw);height:min(620px,72vh);border-radius:32px;display:grid;grid-template-columns:1fr 38%;overflow:hidden;color:var(--ink);transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .5s;transform-origin:50% 100%;will-change:transform}
+.cd.p{background:var(--paper)}.cd.g{background:var(--g)}
+.cd .lab{color:var(--ink)}
+.cx{padding:44px 0 44px 52px;display:flex;flex-direction:column}
+.cd h3{font:800 clamp(52px,4.8vw,84px)/.92 'Inter Tight';letter-spacing:-.05em;text-transform:uppercase;margin:18px 0 0}
+.cd .d{margin-top:auto;font:500 20px/1.38 'Inter Tight';max-width:520px}
+.cd ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;margin:14px 0 26px}
+.cd li{font:400 15px/1.3 'Inter Tight';color:rgba(20,18,17,.62);position:relative}
+.cd li:not(:last-child):after{content:"/";margin-left:18px;color:rgba(20,18,17,.3)}
+.cd .btn{align-self:flex-start;padding:18px 30px;font-size:17px}
+/* справа кадр работы по этой задаче: руки, а не лица */
+.cp2{position:relative;overflow:hidden}
+.cp2 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* 3 цена */
+/* цена: ваша ситуация (переключатель) даёт способ оплаты крупно, справа расчёт без плашек */
+.pz{margin-top:64px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:80px;border-top:1px solid var(--ink);padding-top:40px}
+.pl .lab,.pf>.lab{margin-bottom:16px}
+.sw{display:inline-flex;background:rgba(20,18,17,.07);border-radius:999px;padding:6px;gap:2px}
+.sw button{border:0;background:none;border-radius:999px;padding:16px 22px;white-space:nowrap;font:600 17px 'Inter Tight';cursor:pointer;color:var(--ink);transition:background .3s,color .3s}
+.sw button.on{background:var(--ink);color:var(--paper)}
+.sw button:focus-visible,.trm button:focus-visible,.cnt button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.pl .lab.pq{margin:56px 0 0}
+.pb{margin-top:8px;font:800 clamp(72px,5.8vw,112px)/.86 'Inter Tight';letter-spacing:-.06em;text-transform:uppercase;overflow:hidden;padding:.08em 0 .04em}
+.pb i{display:block;font-style:normal;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.pb i.out{transform:translateY(-100%);opacity:0}.pb i.in{transform:translateY(100%);opacity:0}
+.pd{margin-top:22px;font:500 24px/1.35 'Inter Tight';max-width:560px;transition:opacity .3s}
+/* справа только вопросы для выбранной ситуации; у каждого вопроса подпись */
+.q{padding:20px 0;border-bottom:1px solid var(--line)}
+.q .lab{display:block;margin-bottom:12px}
+.mode[hidden]{display:none}
+.pf .fr{margin-top:24px}
+.cnt{display:flex;align-items:center;gap:18px}
+.cnt button{width:56px;height:56px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);font:500 28px/1 'Inter Tight';cursor:pointer;flex:none;transition:transform .2s var(--ease)}
+.cnt button:hover{transform:scale(1.06)}
+.cnt output{font:800 64px/1 'Inter Tight';letter-spacing:-.05em;min-width:1.4em;text-align:center}
+.cnt span{font:500 22px 'Inter Tight'}
+.trm{display:flex;flex-wrap:wrap;gap:8px}
+.trm button{border:0;border-radius:999px;background:rgba(20,18,17,.07);padding:13px 20px;font:500 16px 'Inter Tight';cursor:pointer;color:var(--ink)}
+.trm button.on{background:var(--ink);color:var(--paper)}
+select,input[type=text],input[type=tel]{width:100%;margin-top:12px;background:none;border:0;border-bottom:2px solid rgba(20,18,17,.25);border-radius:0;font:400 20px 'Inter Tight';padding:14px 0;color:var(--ink);transition:border-color .25s}
+input[type=text]:focus,input[type=tel]:focus{outline:none;border-bottom-color:var(--ink)}
+.fr{display:flex;gap:24px;align-items:flex-end}
+.fr input{margin-top:0;flex:1;min-width:0}
+.fr .btn{padding:0 28px;height:56px;font-size:17px;flex:none}
+.bad{border-color:#F40404!important;background:rgba(244,4,4,.06)!important}
+.ok{margin-top:16px;font:500 18px 'Inter Tight';padding-left:24px;position:relative}
+.ok:before{content:"";position:absolute;left:0;top:.38em;width:12px;height:12px;border-radius:50%;background:var(--g)}
+.fine{margin-top:14px;font:400 14px/1.4 'Inter Tight';color:var(--mute)}
+.fine a{border-bottom:1px solid var(--mute)}
+
+/* 4 спецпредложение: ваша кадровая служба это наши люди, они встают на буквы «КАДРЫ» */
+.spec{margin-top:150px;padding:110px 0 0;background:var(--g);overflow:hidden;position:relative}
+.spec .lab{color:var(--ink)}
+.sp .card{width:600px;background:var(--paper);border-radius:28px;padding:44px 48px 46px;position:relative;z-index:3}
+.sp .card .h2{font-size:clamp(48px,4.4vw,70px)}
+.sp ul{list-style:none;margin-top:28px;border-top:1px solid var(--line)}
+.sp li{font:500 20px/1.3 'Inter Tight';padding:13px 0;border-bottom:1px solid var(--line);position:relative}
+.sp .lead{margin:22px 0 28px;font-size:20px}
+.big{position:relative;margin-top:-160px;height:clamp(300px,24vw,460px)}
+.big>span{position:absolute;left:50%;bottom:0;transform:translate(-50%,40%);font:800 clamp(330px,27vw,520px)/.74 'Inter Tight';letter-spacing:-.06em;color:var(--ink);white-space:nowrap;transition:transform 1.1s cubic-bezier(0,0,.38,.9)}
+.big.on>span{transform:translate(-50%,13%)}
+/* кадр кадровой работы: документы со штампом ложатся на слово «КАДРЫ» */
+.big .ph{position:absolute;right:clamp(32px,4vw,72px);bottom:calc(100% - 7vw);width:clamp(440px,40vw,760px);aspect-ratio:3/2;object-fit:cover;mix-blend-mode:multiply;opacity:0;transform:translateY(-60px);transition:opacity .5s .6s,transform .8s .6s cubic-bezier(.2,.8,.2,1)}
+.big.on .ph{opacity:1;transform:none}
+
+/* 5 как работаем: блок держится, номер шага крупно, шаги идут прокруткой */
+.kak{padding-top:0}
+.kak .pin{height:260vh;position:relative}
+.kak .stk{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
+.kk{margin-top:40px;display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:center}
+/* слева кадр того, что происходит на шаге; подпись говорит, что получает клиент */
+.shot{position:relative;width:100%;max-width:440px;aspect-ratio:4/5;max-height:62vh;background:#dedcd7;overflow:hidden}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .5s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.shot img.on{opacity:1;transform:none}
+.scap{display:flex;gap:16px;align-items:baseline;margin-top:16px;max-width:440px}
+.scap span{font:400 13px 'JetBrains Mono';color:var(--mute);flex:none}
+.scap b{font:600 20px/1.3 'Inter Tight';letter-spacing:-.01em}
+.steps{list-style:none;border-top:1px solid var(--ink)}
+.steps li{display:grid;grid-template-columns:48px 220px 1fr;gap:20px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);opacity:.3;transition:opacity .3s}
+.steps li.cur{opacity:1!important}
+.steps li:before{content:"0" counter(s);counter-increment:s;font:400 13px 'JetBrains Mono';color:var(--mute)}
+.steps{counter-reset:s}
+.steps b{font:600 26px/1.15 'Inter Tight';letter-spacing:-.025em}
+.steps p{font:400 18px/1.4 'Inter Tight'}
+.steps em{display:none}
+.ctl{margin-top:56px;display:grid;grid-template-columns:1fr 2fr;gap:40px;padding:26px 0;border-top:1px solid var(--ink)}
+.ctl p{font:400 19px/1.42 'Inter Tight';max-width:760px}
+.ctl p.lab{font:400 13px 'JetBrains Mono'}
+
+/* 6 кейсы */
+.pills{display:flex;gap:8px;margin-top:44px}
+.pill{border:0;border-radius:999px;background:rgba(20,18,17,.08);padding:14px 24px;font:600 16px 'Inter Tight';cursor:pointer}
+.pill.on{background:var(--ink);color:#fff}
+/* кейсы: история читается одной фразой; серым «было», чёрным «стало»; слева выбор кейса */
+.cz{margin-top:64px;display:grid;grid-template-columns:3fr 9fr;gap:64px;border-top:1px solid var(--ink);padding-top:40px}
+.cl{list-style:none}
+.cl button{display:flex;gap:16px;align-items:baseline;width:100%;text-align:left;background:none;border:0;padding:14px 0;border-bottom:1px solid var(--line);font:600 22px/1.2 'Inter Tight';letter-spacing:-.02em;color:rgba(20,18,17,.35);cursor:pointer;transition:color .25s}
+.cl button span{font:400 13px 'JetBrains Mono';letter-spacing:0}
+.cl li.on button{color:var(--ink)}
+.cl button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.ct{font:600 clamp(40px,3.9vw,66px)/1.1 'Inter Tight';letter-spacing:-.04em;min-height:4.4em}
+.ct .w{display:inline-block;overflow:hidden;vertical-align:top;padding:.06em 0 .1em;margin:-.06em 0 -.1em}
+.ct .w i{display:inline-block;font-style:normal;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.ct .w i.dn{transform:translateY(110%)}
+.ct .was{color:rgba(20,18,17,.3)}
+.ct sup{font:400 13px 'JetBrains Mono';letter-spacing:.04em;vertical-align:.9em;margin-right:.6em;color:var(--mute)}
+.cm{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.cm p:not(.lab){font:400 18px/1.42 'Inter Tight';margin-top:10px;transition:opacity .3s}
+
+/* 7 команда: имена крупно; наведение на имя показывает человека рядом с курсором */
+.crew{margin-top:64px;border-top:1px solid var(--ink);list-style:none}
+.crew li{border-bottom:1px solid var(--line);display:grid;grid-template-columns:90px 1fr minmax(260px,380px);align-items:center;gap:24px;padding:30px 0;cursor:default}
+.crew .n{font:400 13px 'JetBrains Mono';color:var(--mute)}
+.crew b{display:flex;align-items:center;gap:0;font:600 clamp(40px,4vw,68px)/1 'Inter Tight';letter-spacing:-.045em;transition:transform .5s var(--ease),color .3s}
+.crew b:before{content:"";flex:none;width:0;height:.26em;border-radius:50%;background:var(--g);transition:width .4s var(--ease),margin .4s var(--ease)}
+.crew li:hover b:before{width:.26em;margin-right:.28em}
+.crew li.boss{padding:40px 0}
+.crew li.boss b{font-size:clamp(52px,4.6vw,84px);letter-spacing:-.05em;white-space:nowrap}
+.crew span{font:400 18px/1.4 'Inter Tight';color:var(--mute)}
+.crew span em{display:block;font-style:normal;font-weight:600;color:var(--ink);margin-bottom:4px}
+.crew:hover li:not(:hover) b{color:rgba(20,18,17,.28)}
+.face{position:fixed;left:0;top:0;z-index:20;width:200px;height:250px;border-radius:20px;overflow:hidden;background:#dedcd7;pointer-events:none;opacity:0;transform:translate(-50%,-100%) scale(.85);transform-origin:50% 100%;transition:opacity .25s,transform .35s var(--ease)}
+.face.on{opacity:1}
+.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.face .lab{position:absolute;left:14px;bottom:12px;color:var(--paper);background:rgba(20,18,17,.55);padding:4px 8px;border-radius:6px}
+
+/* 8 новости и вакансии */
+.nv{display:grid;grid-template-columns:1fr 1fr;gap:80px;border-top:1px solid var(--ink);padding-top:44px;margin-top:150px}
+.news li{list-style:none;border-bottom:1px solid var(--line)}
+.news li a{display:flex;justify-content:space-between;gap:24px;padding:22px 0;font:500 22px/1.25 'Inter Tight';letter-spacing:-.015em;transition:transform .4s var(--ease)}
+.news li a:hover{transform:translateX(10px)}
+.news li a:after{content:"Читать";font:400 13px 'JetBrains Mono';letter-spacing:.04em;text-transform:uppercase;color:var(--mute);flex:none;padding-top:6px}
+.news .lab{margin-bottom:18px}
+.news .lnk{display:inline-block;margin-top:30px}
+.job h3{font:800 clamp(40px,3.4vw,60px)/.92 'Inter Tight';letter-spacing:-.05em;text-transform:uppercase;margin:14px 0 20px}
+.job .lead{font-size:20px;max-width:480px;margin-bottom:28px}
+.job form{max-width:560px}
+/* кандидату показываем человека, который уже пришёл к нам за работой */
+.job{display:grid;grid-template-columns:minmax(180px,34%) 1fr;gap:40px;align-items:start}
+.job .jp{width:100%;aspect-ratio:4/5;object-fit:cover}
+.job .lab{margin-top:0}
+.job .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}.job .fr .btn{grid-column:1/-1;justify-self:start;margin-top:16px}
+
+/* 9 заявка: форма читается как одна фраза; справа менеджер, который перезвонит */
+.cta{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);padding:110px 0 130px;margin-top:0}
+.cta .in{position:relative;z-index:2}
+.cta .lab{color:rgba(242,241,238,.6)}
+.sent{margin-top:26px;font:600 clamp(44px,4.4vw,76px)/1.22 'Inter Tight';letter-spacing:-.04em}
+.sent input{font:inherit;letter-spacing:inherit;color:var(--paper);background:none;border:0;border-bottom:3px solid rgba(242,241,238,.32);border-radius:0;margin:0;padding:0 0 .02em;width:auto;-webkit-appearance:none;appearance:none;transition:border-color .3s;vertical-align:baseline}
+.sent input{width:7.4em}
+.sent input::placeholder{color:rgba(242,241,238,.3)}
+.sent input:hover{border-bottom-color:rgba(242,241,238,.6)}
+.sent input:focus{outline:none;border-bottom-color:var(--g)}
+.sent .bad{border-bottom-color:#F40404!important;background:none!important}
+.sent .go2{display:flex;align-items:center;gap:28px;margin-top:44px;letter-spacing:0}
+.sent .go2 .fine{margin:0;max-width:360px;color:rgba(242,241,238,.6)}.sent .fine a{border-color:rgba(242,241,238,.5)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 26px;letter-spacing:0}
+.chips button{border:0;border-radius:999px;background:rgba(242,241,238,.1);color:var(--paper);font:500 clamp(18px,1.5vw,24px)/1 'Inter Tight';letter-spacing:-.01em;padding:16px 24px 17px;cursor:pointer;transition:background .25s,color .25s,transform .25s var(--ease)}
+.chips button:hover{background:rgba(242,241,238,.2);transform:translateY(-2px)}
+.chips button.on{background:var(--g);color:var(--ink)}
+.chips button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+.sent .ok{font-size:20px;letter-spacing:0}
+.after{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:84px;padding:26px 0 110px;border-top:1px solid rgba(242,241,238,.22);list-style:none;counter-reset:a}
+.after li{counter-increment:a;font:500 19px/1.35 'Inter Tight'}
+.after li:before{content:"0" counter(a);display:block;margin-bottom:12px;font:400 13px 'JetBrains Mono';color:var(--g)}
+
+footer{padding:70px 0 0;overflow:hidden}
+/* подвал: гигантское SPS, между буквами наши люди сменяют друг друга */
+.wm{display:flex;align-items:center;justify-content:center;margin-top:40px;font:800 34vw/.74 'Inter Tight';letter-spacing:-.07em;height:25vw;overflow:hidden;white-space:nowrap}
+.wm>span:not(.wc){transform:translateY(8%)}
+.wc{position:relative;flex:none;width:17vw;aspect-ratio:4/5;margin:0 -1.2vw 0 -.6vw;border-radius:1.6vw;overflow:hidden;background:#dedcd7;transform:rotate(-7deg) translateY(-6%);z-index:2;transition:transform .6s var(--ease)}
+.wm:hover .wc{transform:rotate(3deg) translateY(-8%)}
+.wc canvas{position:absolute;inset:0;width:100%;height:100%}
+footer .in{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.4fr;gap:40px}
+footer b.lg{font:800 40px 'Inter Tight';letter-spacing:-.04em}
+footer p,footer a{display:block;font:400 16px/1.5 'Inter Tight';margin-top:8px}
+footer p.lab{font:400 13px 'JetBrains Mono';margin:0 0 14px}
+.cp a{margin-top:0}
+.cp{max-width:1440px;margin:56px auto 0;padding:22px 64px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;font:400 14px 'Inter Tight';color:var(--mute)}
+.note{max-width:1440px;margin:0 auto;padding:26px 64px 50px;font:400 13px/1.6 'JetBrains Mono';color:var(--mute)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rv{opacity:1;transform:none}.wd>i{transform:none}.kak .pin{height:auto}.zpin{height:auto}.zst{position:static;height:auto;min-height:100vh}.kak .stk{position:static;height:auto;padding-top:150px}.steps li{opacity:1!important}.big>span{transform:translate(-50%,13%)}.big .ph{opacity:1;transform:none}}
+</style></head><body>
+
+<!-- 1 ПЕРВЫЙ ЭКРАН: один заголовок, один подзаголовок, одно действие -->
+<section class="hero"><div class="w" id="w">
+<header class="hd"><b>SPS<small>Group · Воронеж</small></b><a href="#zadachi">Услуги</a><a href="#cena">Стоимость</a><a href="#kak">Как&nbsp;работаем</a><a href="#keisy">Кейсы</a><a href="#rabota">Ищу работу</a><a class="tel" href="tel:+74732296544">+7 473 229-65-44</a></header>
+<h1 aria-label="Нужны люди? Найдём."><span class="l"><i>Нужны</i></span><span class="l l2"><i><span class="roll" id="slot"><u>менеджеры</u></span>?</i></span><span class="l l3"><i>Найдём.</i></span></h1>
+
+<canvas id="pc" width="600" height="1100" role="img" aria-label="Сотрудник"></canvas>
+<div class="low"><p class="lead">Подберём специалистов, выведем бригаду на&nbsp;смену, наладим уборку и&nbsp;кадровый учёт. Нанимаем людей для&nbsp;бизнеса Воронежа 17&nbsp;лет.</p><a class="btn g" href="#zayavka" id="hcta" data-chip="0">Обсудить задачу</a></div>
+<div class="tasks" id="tasks"><p class="lab">Что&nbsp;нужно решить</p><button>Закрыть вакансию</button><button>Вывести людей на&nbsp;смену</button><button>Наладить уборку</button><button>Навести порядок в&nbsp;кадрах</button></div>
+</div></section>
+
+<div class="mq" id="mq" aria-label="Где работают наши люди"><p class="lab">Где&nbsp;работают наши люди</p><div class="tr" id="mqt"><span>Производство</span><span>Склады</span><span>Логистика</span><span>Торговля</span><span>Гостиницы</span><span>Санатории</span><span>Базы отдыха</span><span>Бизнес-центры</span></div></div>
+<!-- манифест: слова темнеют по мере чтения, как места, которые занимают люди -->
+<section class="mf" id="mf"><div class="in"><p class="lab">Почему SPS</p><p class="mt" id="mt">Вы занимаетесь своим делом. Мы находим людей, выводим их на смену и следим, чтобы они работали. Если кто-то не вышел, замену ищем мы, а не вы. Один договор и один человек на связи.</p></div></section>
+<!-- 2 ПЯТЬ НАПРАВЛЕНИЙ: вход через задачу клиента -->
+<div class="pxe" data-d="0" aria-hidden="true"><canvas></canvas></div>
+<section class="dark dk" id="zadachi"><div class="zpin" id="zpin"><div class="zst">
+<div class="in ztop"><p class="lab">С&nbsp;чем&nbsp;к&nbsp;нам приходят</p><p class="zc"><b id="zn">01</b>/05</p></div>
+<div class="deck" id="deck">
+<article class="cd p"><div class="cx"><p class="lab">Подбор персонала</p><h3>Вакансия висит месяцами</h3><p class="d">Ищем специалистов, руководителей и&nbsp;рабочих. Вы&nbsp;получаете кандидатов, которых мы&nbsp;уже проверили, и&nbsp;выбираете из&nbsp;них.</p><ul><li>Специалисты и&nbsp;руководители</li><li>Массовый и&nbsp;промышленный набор</li><li>Прямой поиск и&nbsp;финансовый подбор</li></ul><a class="btn g" href="#cena" data-pay="0">Рассчитать подбор</a></div><div class="cp2"><img src="img/h-podbor.jpg" alt="Рекрутер отмечает резюме"></div></article>
+<article class="cd g"><div class="cx"><p class="lab">Предоставление персонала</p><h3>Не&nbsp;хватает рук на&nbsp;смену</h3><p class="d">Выводим людей на&nbsp;ваш объект. Наём, документы и&nbsp;замены на&nbsp;нашей стороне, вы&nbsp;платите за&nbsp;работу.</p><ul><li>Производство, склад и&nbsp;логистика</li><li>Торговля</li><li>Гостиницы, санатории, базы отдыха</li></ul><a class="btn k" href="#cena" data-pay="2">Рассчитать персонал</a></div><div class="cp2"><img src="img/h-smena.jpg" alt="Руки в рабочих перчатках несут коробку"></div></article>
+<article class="cd p"><div class="cx"><p class="lab">Коммерческий клининг</p><h3>Уборка подводит</h3><p class="d">Организуем уборку офиса, магазина или&nbsp;цеха под&nbsp;ключ. Команду под&nbsp;объект собираем быстро: нанимать людей это&nbsp;наша основная работа.</p><ul><li>Уборка под&nbsp;ключ</li><li>Аудит: где&nbsp;теряются деньги и&nbsp;качество</li></ul><a class="btn g" href="#zayavka" data-chip="2">Обсудить объект</a></div><div class="cp2"><img src="img/h-klining.jpg" alt="Уборка: руки в перчатках протирают стекло"></div></article>
+<article class="cd g"><div class="cx"><p class="lab">Консалтинг</p><h3>Люди есть, результата нет</h3><p class="d">Разберёмся, почему команда работает не&nbsp;в&nbsp;полную силу, и&nbsp;покажем, что&nbsp;менять: людей, оплату или&nbsp;процессы.</p><ul><li>Оценка персонала</li><li>Мотивация и&nbsp;оплата труда</li><li>Оптимизация кадровых процессов</li></ul><a class="btn k" href="#komanda">Познакомиться с&nbsp;экспертами</a></div><div class="cp2"><img src="img/h-konsalting.jpg" alt="Консультант рисует структуру команды"></div></article>
+<article class="cd p"><div class="cx"><p class="lab">О&nbsp;группе SPS</p><h3>Хочу знать, кому доверяю</h3><p class="d">SPS Group это&nbsp;кадровое агентство SPS и&nbsp;компания «Кадровая защита». Работаем в&nbsp;Воронеже 17&nbsp;лет и&nbsp;знаем местный рынок труда.</p><ul><li>История и&nbsp;компании группы</li><li>Документы и&nbsp;реквизиты исполнителя</li><li>Новости и&nbsp;проекты</li></ul><a class="btn g" href="#">Презентация, PDF</a></div><div class="cp2"><img src="img/h-doverie.jpg" alt="Рукопожатие руководителя и рабочего"></div></article>
+</div>
+</div></div></section>
+<div class="pxe dn" data-d="1" aria-hidden="true"><canvas></canvas></div>
+
+<!-- 3 ПОДСКАЗКА ВЫБОРА + КАЛЬКУЛЯТОР -->
+<section id="cena"><div class="in">
+<p class="lab rv">Сколько это&nbsp;стоит</p>
+<h2 class="h2">Цену называем до&nbsp;договора</h2>
+<div class="pz rv">
+<div class="pl">
+<p class="lab">Ваша ситуация</p>
+<div class="sw" id="pay" role="radiogroup" aria-label="Ваша ситуация"><button type="button" role="radio" aria-checked="true" class="on" data-m="Подбор за вакансию" data-b="За&nbsp;вакансию" data-d="Разовый подбор. Платите только за&nbsp;закрытую вакансию.">Нужен один человек</button><button type="button" role="radio" aria-checked="false" data-m="Рекрутер по абонементу" data-b="Абонемент" data-d="Фиксированная плата в&nbsp;месяц. Рекрутер SPS работает только на&nbsp;вас.">Нанимаю постоянно</button><button type="button" role="radio" aria-checked="false" data-m="Персонал на смены" data-b="За&nbsp;час работы" data-d="Персонал на&nbsp;смены. Платите за&nbsp;отработанные часы.">Нужны руки на&nbsp;объект</button></div>
+<p class="lab pq">Как вы&nbsp;платите</p>
+<p class="pb" id="pb">За&nbsp;вакансию</p>
+<p class="pd" id="pd">Разовый подбор. Платите только за&nbsp;закрытую вакансию.</p>
+</div>
+<form class="pf" id="f2" novalidate>
+<p class="lab" id="pfl">Что нужно для&nbsp;расчёта</p>
+<div class="mode" data-i="0">
+<div class="q"><span class="lab">Кого ищем</span><div class="trm"><button type="button" class="on">специалиста</button><button type="button">руководителя</button><button type="button">рабочего</button></div></div>
+<div class="q"><span class="lab">Когда нужен человек</span><div class="trm"><button type="button" class="on">как можно скорее</button><button type="button">в&nbsp;течение месяца</button><button type="button">без&nbsp;спешки</button></div></div>
+</div>
+<div class="mode" data-i="1" hidden>
+<div class="q"><span class="lab">Сколько вакансий в&nbsp;месяц</span><div class="cnt"><button type="button" class="mn" aria-label="Меньше">−</button><output>3</output><button type="button" class="pl" aria-label="Больше">+</button><span data-w="вакансия|вакансии|вакансий">вакансии</span></div></div>
+<div class="q"><span class="lab">Кого нанимаете чаще</span><div class="trm"><button type="button" class="on">специалистов</button><button type="button">руководителей</button><button type="button">рабочих</button></div></div>
+</div>
+<div class="mode" data-i="2" hidden>
+<div class="q"><span class="lab">Сколько людей нужно на&nbsp;смену</span><div class="cnt"><button type="button" class="mn" aria-label="Меньше">−</button><output>5</output><button type="button" class="pl" aria-label="Больше">+</button><span data-w="человек|человека|человек">человек</span></div></div>
+<div class="q"><span class="lab">На&nbsp;какой срок</span><div class="trm"><button type="button" class="on">разово</button><button type="button">до&nbsp;3&nbsp;месяцев</button><button type="button">от&nbsp;3&nbsp;месяцев</button><button type="button">постоянно</button></div></div>
+</div>
+<div class="fr"><input type="tel" placeholder="Ваш телефон" aria-label="Телефон"><button class="btn k">Получить расчёт</button></div>
+<p class="ok" hidden>Запрос принят. Перезвоним и&nbsp;пришлём расчёт с&nbsp;составом цены.</p><p class="fine">Пришлём расчёт с&nbsp;составом цены. Нажимая кнопку, вы&nbsp;соглашаетесь с&nbsp;<a href="#">политикой обработки персональных данных</a>.</p>
+</form>
+</div>
+</div></section>
+
+<!-- 4 СПЕЦПРЕДЛОЖЕНИЕ -->
+<section class="spec" id="spec"><div class="in sp">
+<div class="card rv"><p class="lab">Спецпредложение сезона</p><h2 class="h2">Заберём всю кадровую службу</h2><ul><li>Подбор и&nbsp;наём</li><li>Кадровый учёт и&nbsp;документы</li><li>Воинский учёт и&nbsp;охрана труда</li></ul><p class="lead">Один договор и&nbsp;одна абонентская плата вместо отдела кадров в&nbsp;штате.</p><a class="btn k" href="#zayavka" data-chip="4">Узнать условия</a></div>
+</div>
+<div class="big" id="big" aria-hidden="true"><span>КАДРЫ</span><img class="ph" src="img/h-kadry.jpg" alt=""></div>
+</section>
+
+<!-- 5 КАК РАБОТАЕМ -->
+<section class="kak" id="kak"><div class="pin" id="pin"><div class="stk"><div class="in" style="width:100%">
+<p class="lab">Как&nbsp;работаем</p>
+<h2 class="h2">От&nbsp;звонка до&nbsp;смены</h2>
+<div class="kk">
+<div class="sl"><div class="shot" id="shot"><img class="on" src="img/k-1-kontakt.jpg" alt="Звонок и заметки о задаче"><img src="img/k-2-analiz.jpg" alt="Менеджер с чек-листом на складе"><img src="img/k-3-raschet.jpg" alt="Расчёт стоимости"><img src="img/k-4-dogovor.jpg" alt="Подписание договора"><img src="img/k-5-lyudi.jpg" alt="Бригада выходит на смену"><img src="img/k-6-uchet.jpg" alt="Учёт выходов на объекте"></div>
+<p class="scap"><span id="scn">01/06</span><b id="sne">У&nbsp;вас есть ответственный менеджер</b></p></div>
+<ol class="steps" id="steps">
+<li><b>Контакт</b><p>Рассказываете задачу по&nbsp;телефону.</p><em>У&nbsp;вас есть ответственный менеджер</em></li>
+<li><b>Анализ</b><p>Изучаем объект, роли и&nbsp;график.</p><em>Требования записаны, а&nbsp;не&nbsp;«на&nbsp;словах»</em></li>
+<li><b>Предложение</b><p>Считаем варианты и&nbsp;сроки.</p><em>Расчёт с&nbsp;составом цены</em></li>
+<li><b>Договор</b><p>Фиксируем объём и&nbsp;ответственность.</p><em>Мы&nbsp;отвечаем по&nbsp;договору</em></li>
+<li><b>Люди</b><p>Подбираем и&nbsp;выводим персонал.</p><em>Сотрудники на&nbsp;месте</em></li>
+<li><b>Поддержка</b><p>Ведём учёт и&nbsp;решаем вопросы.</p><em>Замены и&nbsp;связь через одного человека</em></li>
+</ol>
+</div>
+</div></div></div>
+<div class="in"><div class="ctl"><p class="lab">Как&nbsp;контролируется работа</p><p>За&nbsp;каждым объектом закреплён ответственный. Он&nbsp;ведёт учёт выходов, собирает вашу обратную связь и&nbsp;отвечает на&nbsp;вопросы.</p></div></div></section>
+
+<!-- 6 КЕЙСЫ -->
+<section id="keisy"><div class="in">
+<p class="lab rv">Кейсы</p>
+<h2 class="h2">Что&nbsp;уже сделали</h2>
+<div class="cz rv">
+<ol class="cl" id="cl"><li class="on"><button type="button"><span>01</span>Подбор</button></li><li><button type="button"><span>02</span>Персонал на&nbsp;смены</button></li><li><button type="button"><span>03</span>Клининг</button></li></ol>
+<div class="cb">
+<p class="ct" id="ct"></p>
+<div class="cm"><div><p class="lab">Предложили</p><p id="c3"></p></div><div><p class="lab">Сделали</p><p id="c4"></p></div></div>
+</div>
+</div>
+</div></section>
+
+<!-- 7 КОМАНДА И ЭКСПЕРТЫ -->
+<section id="komanda"><div class="in">
+<p class="lab rv">Команда и&nbsp;эксперты</p>
+<h2 class="h2">Отвечают люди с&nbsp;именами</h2>
+<ol class="crew rv" id="crew">
+<li class="boss" data-f="0"><span class="n">01</span><b>Вячеслав Боричевский</b><span><em>Генеральный директор SPS&nbsp;Group</em>Вы&nbsp;знаете, кто&nbsp;ведёт ваш проект, и&nbsp;можете позвонить ему напрямую.</span></li>
+<li data-f="1"><span class="n">02</span><b>Оценка персонала</b><span><em>Эксперт: имя от&nbsp;клиента</em>Опыт и&nbsp;проекты эксперта</span></li>
+<li data-f="2"><span class="n">03</span><b>Мотивация и&nbsp;оплата</b><span><em>Эксперт: имя от&nbsp;клиента</em>Опыт и&nbsp;проекты эксперта</span></li>
+<li data-f="3"><span class="n">04</span><b>Кадровые процессы</b><span><em>Эксперт: имя от&nbsp;клиента</em>Опыт и&nbsp;проекты эксперта</span></li>
+</ol>
+<div class="face" id="face" aria-hidden="true"><img alt=""><span class="lab">Фото от&nbsp;клиента</span></div>
+</div></section>
+
+<!-- 8 НОВОСТИ И ВАКАНСИИ -->
+<section style="padding-top:0"><div class="in"><div class="nv rv" id="rabota">
+<div class="news"><p class="lab">Новости и&nbsp;проекты</p><ul>
+<li><a href="#">5 поводов уволить сотрудника за&nbsp;поведение</a></li>
+<li><a href="#">Ключевые навыки HR бизнес-партнёра</a></li>
+<li><a href="#">5 стратегий в&nbsp;битве за&nbsp;таланты</a></li>
+<li><a href="#">Кадровый форум Черноземья</a></li></ul><a class="lnk" href="#">Все новости</a></div>
+<div class="job"><img class="jp" src="img/p-candidate.jpg" alt="Кандидат"><div><p class="lab">Работа в&nbsp;SPS Group</p><h3>Ищете работу?</h3><p class="lead">Оставьте телефон. Позвоним и&nbsp;предложим вакансии под&nbsp;ваш опыт и&nbsp;график.</p>
+<form id="f3" novalidate><div class="fr"><input type="text" placeholder="Имя" aria-label="Имя"><input type="tel" placeholder="Телефон" aria-label="Телефон"><button class="btn g">Хочу работать</button></div><p class="ok" hidden>Спасибо. Позвоним и&nbsp;расскажем о&nbsp;вакансиях.</p><p class="fine">Нажимая кнопку, вы&nbsp;соглашаетесь с&nbsp;<a href="#">политикой обработки персональных данных</a>.</p></form></div></div>
+</div></div></section>
+
+<!-- 9 ЗАЯВКА -->
+<div class="pxe" data-d="0" aria-hidden="true"><canvas></canvas></div>
+<section class="cta" id="zayavka">
+<div class="in">
+<div><p class="lab">Заявка</p>
+<form class="sent" id="f1" novalidate>
+<p>Нам нужно</p>
+<div class="chips" id="chips" role="radiogroup" aria-label="Задача"><button type="button" role="radio" aria-checked="true" class="on">найти сотрудника</button><button type="button" role="radio" aria-checked="false">людей на&nbsp;смены</button><button type="button" role="radio" aria-checked="false">наладить уборку</button><button type="button" role="radio" aria-checked="false">порядок в&nbsp;кадрах</button><button type="button" role="radio" aria-checked="false">всю кадровую службу</button></div>
+<p>Позвоните на <input type="tel" placeholder="ваш номер" aria-label="Телефон"></p>
+<div class="go2"><button class="btn g">Жду звонка</button><p class="fine">Нажимая кнопку, вы&nbsp;соглашаетесь с&nbsp;<a href="#">политикой обработки персональных данных</a>.</p></div>
+<p class="ok" hidden>Заявка принята. Перезвоним вам.</p>
+</form>
+</div>
+</div></section>
+
+<footer><div class="in">
+<div><b class="lg">SPS Group</b><p>Кадровое агентство SPS и&nbsp;компания «Кадровая защита». Воронеж.</p></div>
+<div><p class="lab">Услуги</p><a href="#zadachi">Подбор персонала</a><a href="#zadachi">Предоставление персонала</a><a href="#zadachi">Коммерческий клининг</a><a href="#zadachi">Консалтинг</a></div>
+<div><p class="lab">Компания</p><a href="#">О&nbsp;группе</a><a href="#spec">Спецпредложения</a><a href="#keisy">Кейсы</a><a href="#">Новости</a></div>
+<div><p class="lab">Кандидатам</p><a href="#rabota">Работа в&nbsp;SPS Group</a><a href="#">Вакансии</a></div>
+<div><p class="lab">Контакты</p><p>Адрес и&nbsp;часы работы от&nbsp;клиента</p><p>Почта от&nbsp;клиента</p></div>
+</div><div class="cp"><span>© SPS Group</span><a href="#">Политика обработки персональных данных</a></div>
+<div class="wm" id="wm" aria-hidden="true"><span>S</span><span class="wc"><canvas id="wcv" width="600" height="820"></canvas></span><span>PS</span></div></footer>
+<p class="note">Рабочий макет. Подтвердить у&nbsp;клиента: «17&nbsp;лет», телефон, условия оплаты (за&nbsp;вакансию, абонемент, за&nbsp;час), состав спецпредложения, формулу калькулятора, роль «Кадровой защиты». От&nbsp;клиента нужны: реальные кейсы, фото команды, имена экспертов, контакты, PDF. Люди на&nbsp;странице сгенерированы и&nbsp;будут заменены фотографиями сотрудников SPS. Формы проверяют телефон и&nbsp;показывают состояние «принято», данные никуда не&nbsp;уходят.</p>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function tween(a,b,ms,fn,done){const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/ms);fn(a+(b-a)*k,k);k<1?requestAnimationFrame(f):done&&done()})(t0)}
+/* человек на холсте: при смене пиксели рассыпаются и собираются в нового человека (пиксели = люди, которые занимают своё место) */
+function pixPerson(cv,imgs){const cx=cv.getContext('2d'),tmp=document.createElement('canvas'),tx=tmp.getContext('2d');let cur=-1,anim=0;
+ /* портрет заполняет рамку целиком, лицо остаётся в верхней трети */
+ function draw(im,px,a){const W=cv.width,H=cv.height,k0=Math.max(W/im.width,H/im.height),w=im.width*k0,h=im.height*k0,x=(W-w)/2,y=(H-h)*.3;
+  if(px<=1){cx.globalAlpha=a;cx.drawImage(im,x,y,w,h);cx.globalAlpha=1;return}
+  const sw=Math.ceil(W/px),sh=Math.ceil(H/px);tmp.width=sw;tmp.height=sh;tx.clearRect(0,0,sw,sh);tx.drawImage(im,x/px,y/px,w/px,h/px);
+  cx.imageSmoothingEnabled=false;cx.globalAlpha=a;cx.drawImage(tmp,0,0,sw,sh,0,0,sw*px,sh*px);cx.globalAlpha=1}
+ const show=function(n,force){if(n===cur&&!force)return;const old=cur,id=++anim;
+  const into=()=>tween(40,1,520,(px,k)=>{if(id!==anim)return;cx.clearRect(0,0,cv.width,cv.height);draw(imgs[n],Math.max(1,Math.round(px)),Math.min(1,k*2))});
+  if(old<0)into();else tween(1,40,380,(px,k)=>{if(id!==anim)return;cx.clearRect(0,0,cv.width,cv.height);draw(imgs[old],Math.max(1,Math.round(px)),1-k*.6)},()=>{if(id===anim)into()});cur=n};show.redraw=()=>{if(cur>=0){cx.clearRect(0,0,cv.width,cv.height);draw(imgs[cur],1,1)}};return show}
+const srcs=['p-manager','p-worker','p-cleaner','p-expert'],imgs=[];let ready=0;
+srcs.forEach((n,i)=>{const im=new Image();im.onload=()=>{if(++ready===4)init()};im.src='img/'+n+'.jpg';imgs[i]=im});
+/* холст получает размер своей рамки, чтобы портрет был чётким */
+function fitCanvas(cv){const r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d)}
+/* первый экран: должность в заголовке и человек меняются вместе */
+const tb=$$('#tasks button'),roles=['менеджеры','грузчики','уборщицы','эксперты'],slot=$('#slot');let hcur=-1,timer,heroShow;
+function word(n){const u=slot.querySelector('u');u.textContent=roles[n];const fs=parseFloat(getComputedStyle(slot).fontSize);slot.style.width=(u.getBoundingClientRect().width+fs*.02)+'px';/* старые слова убираем сразу, новое ставим без ожидания кадра: слова не копятся и не накладываются */
+ slot.querySelectorAll('b').forEach(o=>{if(o.classList.contains('gone')){o.remove();return}o.classList.remove('now');o.classList.add('gone');setTimeout(()=>o.remove(),520)});
+ const b=document.createElement('b');b.textContent=roles[n];slot.appendChild(b);b.getBoundingClientRect();b.classList.add('now')}
+function hero(n){if(n===hcur)return;hcur=n;$('#hcta').dataset.chip=n;tb.forEach((b,i)=>b.classList.toggle('on',i===n));word(n);heroShow(n)}
+function auto(){clearInterval(timer);timer=setInterval(()=>{if(!document.hidden)hero((hcur+1)%4)},4600)}
+/* задачи: колода листается прокруткой; верхняя карта — текущая задача, прочитанные улетают вверх */
+const cds=$$('#deck .cd'),zli=$$('#zl li'),zpin=$('#zpin');let zcur=-1;
+function task(n){if(n===zcur)return;zcur=n;$('#zn').textContent='0'+(n+1);zli.forEach((l,i)=>l.classList.toggle('on',i===n));
+ cds.forEach((c,i)=>{const d=i-n;c.style.zIndex=10-Math.abs(d);c.setAttribute('aria-hidden',d!==0);c.inert=d!==0;
+  if(d<0){c.style.transform='translate(-50%,-50%) translate(-34vw,-80vh) rotate(-18deg)';c.style.opacity=0}
+  else{const k=Math.min(d,1);c.style.opacity=d>1?0:1;c.style.transform='translate(-50%,-50%) translateY('+(-k*18)+'px) rotate('+(k*2.5*(k%2?1:-1))+'deg) scale('+(1-k*.04)+')'}})}
+function zgo(n){const r=zpin.getBoundingClientRect();scrollTo({top:r.top+scrollY+(n+.5)/5*(zpin.offsetHeight-innerHeight),behavior:'smooth'})}
+function zprog(){const r=zpin.getBoundingClientRect();const k=Math.max(0,Math.min(.999,-r.top/(zpin.offsetHeight-innerHeight)));task(Math.floor(k*5))}
+zli.forEach((l,i)=>l.querySelector('button').addEventListener('click',()=>zgo(i)));
+task(0);
+function init(){fitCanvas($('#pc'));fitCanvas($('#wcv'));heroShow=pixPerson($('#pc'),imgs);
+ addEventListener('resize',()=>{fitCanvas($('#pc'));heroShow.redraw()});
+ const wmShow=pixPerson($('#wcv'),imgs);let wi=0;wmShow(0);setInterval(()=>{if($('#wm').getBoundingClientRect().top<innerHeight)wmShow(wi=(wi+1)%4)},2600);
+ setTimeout(()=>{$('#w').classList.add('go');setTimeout(()=>{hero(0);auto()},500)},200);
+ tb.forEach((b,i)=>{b.addEventListener('mouseenter',()=>{clearInterval(timer);hero(i)});b.addEventListener('mouseleave',auto);
+  b.addEventListener('click',()=>zgo(i))});
+}
+/* заголовки поднимаются по словам, блоки появляются, когда они на экране */
+$$('.h2,.job h3').forEach(h=>{const out=[];h.childNodes.forEach(n=>{if(n.nodeType===3){n.textContent.split(' ').forEach((w,k,a)=>{if(w)out.push(w);if(k<a.length-1)out.push(' ')})}else out.push(n)});
+ h.textContent='';let d=0;out.forEach(x=>{if(x===' '){h.append(' ');return}if(x.nodeName==='BR'){h.appendChild(x);return}const s=document.createElement('span');s.className='wd';const i=document.createElement('i');i.style.transitionDelay=(d++*70)+'ms';typeof x==='string'?i.textContent=x:i.appendChild(x);s.appendChild(i);h.appendChild(s)})});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.2});
+$$('.rv,.h2,.job h3,#big').forEach(e=>io.observe(e));
+/* бегущая строка: базовая скорость плюс скорость прокрутки, направление вслед за прокруткой */
+const mqt=$('#mqt');mqt.innerHTML+=mqt.innerHTML;let mx=0,dir=1,vel=0,ly=scrollY;
+(function mq(){const y=scrollY,dy=y-ly;ly=y;if(dy)dir=dy>0?1:-1;vel+=(Math.min(40,Math.abs(dy))-vel)*.08;mx-=dir*(.6+vel*.5);const w=mqt.scrollWidth/2;if(mx<=-w)mx+=w;if(mx>0)mx-=w;mqt.style.transform='translateX('+mx+'px)';requestAnimationFrame(mq)})();
+/* переход к тёмному блоку: клетки встают на места по мере прокрутки */
+const edges=$$('.pxe').map(e=>{const c=e.querySelector('canvas');return{e,c,x:c.getContext('2d'),down:e.dataset.d==='1',cells:null,last:-1}});
+function edgeSize(o){const w=o.e.clientWidth,h=o.e.clientHeight,dpr=devicePixelRatio||1;o.c.width=w*dpr;o.c.height=h*dpr;o.x.setTransform(dpr,0,0,dpr,0,0);const sz=40,cols=Math.ceil(w/sz),rows=Math.ceil(h/sz);o.cells=[];
+ let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+ for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const near=o.down?r/rows:(rows-1-r)/rows;o.cells.push({x:c*sz,y:r*sz,s:sz,t:near*.75+rnd()*.35})}o.last=-1}
+function edgeDraw(){const vh=innerHeight;edges.forEach(o=>{if(!o.cells)edgeSize(o);const r=o.e.getBoundingClientRect();let k=(vh-r.top)/(vh*.7);if(o.down)k=1-(r.bottom)/(vh*.9)+.55;k=Math.max(0,Math.min(1.2,k));const kk=Math.round(k*60);if(kk===o.last)return;o.last=kk;
+ o.x.clearRect(0,0,o.e.clientWidth,o.e.clientHeight);o.x.fillStyle='#141211';o.cells.forEach(c=>{if(k>=c.t)o.x.fillRect(c.x,c.y,c.s+.5,c.s+.5)})})}
+addEventListener('resize',()=>{edges.forEach(o=>o.cells=null);edgeDraw()});
+/* шесть шагов: блок держится, номер и шаг меняются прокруткой, зелёная линия идёт вниз */
+const st=$('#steps'),sl=$$('#steps li'),pin=$('#pin'),dg=$('#dg');let sn=0;
+function digit(n){$$('#shot img').forEach((im,i)=>im.classList.toggle('on',i===n-1));$('#scn').textContent='0'+n+'/06';$('#sne').textContent=sl[n-1].querySelector('em').textContent}
+function prog(){const r=pin.getBoundingClientRect(),vh=innerHeight;const k=Math.max(0,Math.min(1,-r.top/(pin.offsetHeight-vh)));const n=Math.min(6,1+Math.floor(k*6));sl.forEach((l,i)=>{l.classList.toggle('pa',i<n);l.classList.toggle('cur',i===n-1)});if(n!==sn){if(sn)digit(n);sn=n}}
+/* манифест: доля прочитанных слов = насколько блок прошёл через экран */
+const mt=$('#mt');mt.innerHTML=mt.textContent.split(' ').map(w=>'<span>'+w+'</span>').join(' ');const mw=[...mt.children];
+function mfill(){const r=mt.getBoundingClientRect(),vh=innerHeight;const k=Math.max(0,Math.min(1,(vh*.85-r.top)/(r.height+vh*.35)));const n=Math.round(k*mw.length);mw.forEach((w,i)=>w.classList.toggle('lit',i<n))}
+function onScroll(){prog();zprog();edgeDraw();mfill()}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+/* цена: ситуация клиента меняет способ оплаты крупно; число людей и срок идут в запрос расчёта */
+const pay=$$('#pay button'),pb=$('#pb'),pd=$('#pd');let model=pay[0].dataset.m,cnum=5,term='разово';
+pb.innerHTML='<i>'+pb.innerHTML+'</i>';
+function plw(n,f){const [a,b,c]=f.split('|'),m=n%10,h=n%100;return m===1&&h!==11?a:m>=2&&m<=4&&(h<10||h>=20)?b:c}
+const modes=$$('#f2 .mode');
+pay.forEach((b,i)=>b.addEventListener('click',()=>{if(b.classList.contains('on'))return;pay.forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-checked',x===b)});model=b.dataset.m;
+ const old=pb.querySelector('i'),nw=document.createElement('i');nw.innerHTML=b.dataset.b;nw.className='in';old.classList.add('out');pd.style.opacity=0;
+ modes.forEach(m=>{m.style.opacity=0});
+ setTimeout(()=>{old.remove();pb.appendChild(nw);requestAnimationFrame(()=>requestAnimationFrame(()=>nw.className=''));pd.innerHTML=b.dataset.d;pd.style.opacity=1;
+  modes.forEach((m,k)=>{m.hidden=k!==i;requestAnimationFrame(()=>m.style.opacity=1)})},280)}));
+modes.forEach(m=>m.style.transition='opacity .3s');
+$$('#f2 .cnt').forEach(c=>{const o=c.querySelector('output'),w=c.querySelector('span');let v=+o.textContent;
+ const set=n=>{v=Math.max(1,Math.min(500,n));o.textContent=v;w.textContent=plw(v,w.dataset.w)};
+ c.querySelector('.mn').addEventListener('click',()=>set(v-1));c.querySelector('.pl').addEventListener('click',()=>set(v+1))});
+$$('#f2 .trm').forEach(g=>{const bs=[...g.children];bs.forEach(b=>b.addEventListener('click',()=>bs.forEach(x=>x.classList.toggle('on',x===b))))});
+/* кейсы: смена кейса — слова фразы поднимаются по очереди */
+const CASES=[['Руководитель склада нужен давно, вакансия открыта месяцами.','Руководитель вышел на работу, отдел снова работает в полном составе.','Прямой поиск среди руководителей рынка Воронежа','Собрали короткий список, провели оценку и сопроводили выход на работу'],
+['В сезон производству не хватает рабочих на смены.','Смены укомплектованы, замены идут через одного менеджера.','Персонал на смены с оплатой за отработанные часы','Набрали бригаду, оформили людей, закрепили ответственного на объекте'],
+['Уборка в бизнес-центре идёт неровно, люди постоянно меняются.','На объекте постоянная команда, качество проверяет менеджер.','Уборка под ключ после аудита объекта','Провели аудит, собрали команду под объект, ввели проверку качества']];
+const nb=t=>t.replace(/ (в|на|и|с|не|по|за|под|а) /g,' $1\u00a0');
+const ct=$('#ct'),cli=$$('#cl li');
+function words(t,cls){return nb(t).split(' ').map(w=>'<span class="w '+cls+'"><i class="dn">'+w+'</i></span>').join(' ')}
+function kase(n,first){const c=CASES[n];cli.forEach((l,i)=>l.classList.toggle('on',i===n));
+ ct.innerHTML='<sup>БЫЛО</sup>'+words(c[0],'was')+'<br><sup>СТАЛО</sup>'+words(c[1],'now');
+ ['#c3','#c4'].forEach((id,k)=>{$(id).textContent=nb(c[k+2])});
+ const is=[...ct.querySelectorAll('i')];is.forEach((i,k)=>i.style.transitionDelay=(k*28)+'ms');
+ if(!first)requestAnimationFrame(()=>requestAnimationFrame(()=>is.forEach(i=>i.classList.remove('dn'))))}
+kase(0,true);new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){o.disconnect();ct.querySelectorAll('i').forEach(i=>i.classList.remove('dn'))}}),{threshold:.4}).observe(ct);
+cli.forEach((l,i)=>l.querySelector('button').addEventListener('click',()=>{if(!l.classList.contains('on'))kase(i)}));
+/* команда: наведение на имя показывает человека у курсора (до фото от клиента — силуэт) */
+const face=$('#face');const fimg=face.querySelector('img'),FACES=['img/p-boss.jpg','img/p-hr.jpg','img/p-analyst.jpg','img/p-expert2.jpg'];FACES.forEach(u=>{new Image().src=u});const crew=$$('#crew li');let fx=0,fy=0,tx2=0,ty2=0;
+
+crew.forEach(l=>{l.addEventListener('mouseenter',()=>{fimg.src=FACES[+l.dataset.f];face.classList.add('on')});l.addEventListener('mouseleave',()=>face.classList.remove('on'))});
+addEventListener('mousemove',e=>{tx2=e.clientX;ty2=e.clientY-28});
+(function fl(){fx+=(tx2-fx)*.14;fy+=(ty2-fy)*.14;face.style.left=fx+'px';face.style.top=fy+'px';face.style.transform=face.classList.contains('on')?'translate(-50%,-100%) rotate('+Math.max(-8,Math.min(8,(tx2-fx)*.05))+'deg)':'translate(-50%,-100%) scale(.85)';requestAnimationFrame(fl)})();
+/* заявка: задача выбирается кнопкой, выбранная — зелёная */
+const chips=$$('#chips button');chips.forEach(c=>c.addEventListener('click',()=>chips.forEach(x=>{x.classList.toggle('on',x===c);x.setAttribute('aria-checked',x===c)})));
+/* кнопки ведут к форме уже с выбранной задачей: расчёт открывается на нужной ситуации, заявка на нужной задаче */
+$$('[data-pay]').forEach(a=>a.addEventListener('click',()=>{const b=$$('#pay button')[+a.dataset.pay];if(!b.classList.contains('on'))b.click()}));
+$$('[data-chip]').forEach(a=>a.addEventListener('click',()=>chips[+a.dataset.chip].click()));
+/* формы: проверка телефона и состояние «принято» */
+['f1','f2','f3'].forEach(id=>{const f=document.getElementById(id),t=f.querySelector('input[type=tel]');
+ t.addEventListener('input',()=>t.classList.remove('bad'));
+ f.addEventListener('submit',e=>{e.preventDefault();if(t.value.replace(/\D/g,'').length<10){t.classList.add('bad');t.value='';t.placeholder='Введите телефон полностью';t.focus();return}
+  f.querySelector('.ok').hidden=false;f.querySelectorAll('input,select,button').forEach(x=>x.disabled=true)})});
+</script>
+</body></html>
