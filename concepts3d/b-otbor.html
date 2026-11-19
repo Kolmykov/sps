@@ -1,0 +1,84 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPS · концепт B · Отбор</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+/* Концепт B. Тёмный. Поток откликов проходит через три кольца проверки. Большинство отсеивается и гаснет,
+   до конца доходит один, становится зелёным и встаёт на место у клиента фигуркой. Это и есть ответ «кого я получу». */
+:root{--g:#09CB2C;--ink:#141211;--paper:#F2F1EE;--dim:rgba(242,241,238,.56);--pad:clamp(32px,3vw,56px)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:'Inter Tight',sans-serif;overflow:hidden}
+.hero{position:relative;height:100vh;min-height:760px;max-height:1200px}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hd{position:absolute;top:0;left:0;right:0;display:flex;gap:36px;align-items:center;padding:28px var(--pad);font-size:15px;z-index:2}
+.hd b{font-size:22px;font-weight:600;margin-right:auto;display:flex;align-items:center;gap:6px}
+.hd b i{display:inline-block;border-radius:50%;background:var(--paper)}
+.hd a{color:inherit;text-decoration:none}
+.top{position:absolute;left:var(--pad);right:var(--pad);top:clamp(110px,15vh,170px);display:grid;grid-template-columns:7fr 4fr;gap:6vw;align-items:end;z-index:2}
+h1{font-weight:500;font-size:clamp(60px,5.8vw,112px);line-height:.98;letter-spacing:-.035em}
+.lead{font-size:clamp(18px,1.3vw,22px);line-height:1.4;color:var(--dim)}
+.btn{display:inline-block;margin-top:28px;background:var(--g);color:var(--ink);padding:20px 30px;font-size:18px;font-weight:500;text-decoration:none;border-radius:999px}
+.lb{position:absolute;z-index:2;font:12px/1.5 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);transform:translateX(-50%);white-space:nowrap;text-align:center}
+.lb b{display:block;font:500 15px 'JetBrains Mono',monospace;color:var(--paper);margin-top:4px}
+.lb.end b{color:var(--g)}
+</style></head><body>
+<section class="hero">
+<canvas id="c" aria-hidden="true"></canvas>
+<header class="hd"><b><i style="width:7px;height:7px"></i><i style="width:10px;height:10px"></i><i style="width:13px;height:13px;background:var(--g)"></i>&nbsp;SPS</b><a href="#">Услуги</a><a href="#">Стоимость</a><a href="#">Как&nbsp;работаем</a><a href="#">Ищу работу</a><a href="#">+7 473 229-65-44</a></header>
+<div class="top"><h1>Вы встречаете только проверенных людей</h1><div><p class="lead">Отклики, опыт, собеседование и&nbsp;документы проверяем мы. К&nbsp;вам выходит тот, кто прошёл всё.</p><a class="btn" href="#">Обсудить задачу</a></div></div>
+<p class="lb" data-x="-7.3">Отклики</p><p class="lb" data-x="-4.6">Опыт</p><p class="lb" data-x="-.9">Собеседование</p><p class="lb" data-x="2.8">Документы</p><p class="lb end" data-x="6.55">Выходят к&nbsp;вам<b id="cnt">0</b></p>
+</section>
+<script src="three.min.js"></script>
+<script>
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cv=document.getElementById('c');
+const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,100);
+S.add(new THREE.HemisphereLight(0xffffff,0x3a3633,.75));const dl=new THREE.DirectionalLight(0xffffff,.55);dl.position.set(-4,8,10);S.add(dl);
+const G=new THREE.Group();S.add(G);
+const RINGS=[-4.6,-.9,2.8],FLOOR=-1.75;
+/* кольца проверки */
+RINGS.forEach(x=>{const r=new THREE.Mesh(new THREE.TorusGeometry(1.5,.028,12,96),new THREE.MeshBasicMaterial({color:0x6b6661}));r.position.x=x;r.rotation.y=Math.PI/2;G.add(r)});
+/* места у клиента */
+const SLOTS=[5.5,6.2,6.9,7.6],fig=[];
+const bodyG=new THREE.CapsuleGeometry(.17,.26,8,16),plG=new THREE.BoxGeometry(.56,.08,.56);
+SLOTS.forEach(x=>{const p=new THREE.Mesh(plG,new THREE.MeshLambertMaterial({color:0x2c2926}));p.position.set(x,FLOOR,0);G.add(p);
+ const b=new THREE.Mesh(bodyG,new THREE.MeshLambertMaterial({color:0xe9e6e0}));b.position.set(x,FLOOR+.04+.3,0);b.scale.setScalar(.001);G.add(b);fig.push({b,on:0,t:0})});
+/* частицы-отклики */
+const N=800,geo=new THREE.SphereGeometry(.085,14,10),mat=new THREE.MeshLambertMaterial({color:0xffffff});
+const IM=new THREE.InstancedMesh(geo,mat,N);IM.instanceMatrix.setUsage(THREE.DynamicDrawUsage);G.add(IM);
+const P=[],dummy=new THREE.Object3D(),col=new THREE.Color(),cGrey=new THREE.Color(0x77726c),cLight=new THREE.Color(0xe9e6e0),cGreen=new THREE.Color(0x09CB2C),cDead=new THREE.Color(0x2f2c29);
+for(let i=0;i<N;i++){P.push({on:0});IM.setColorAt(i,cGrey)}
+function spawn(fate,delay){const p=P.find(q=>!q.on);if(!p)return;Object.assign(p,{on:1,x:-11-delay*2.4,a:Math.random()*6.28,r0:.4+Math.random()*1.7,v:2.3+Math.random()*.25,fate,ph:'flow',vy:0,s:1,k:0})}
+let wave=0,slot=0,hold=0,count=0;const cnt=document.getElementById('cnt');
+function newWave(){const n=72;let fates=[3];for(let i=0;i<3;i++)fates.push(2);for(let i=0;i<14;i++)fates.push(1);while(fates.length<n)fates.push(0);
+ fates.sort(()=>Math.random()-.5);fates.forEach((f,i)=>spawn(f,i/n*1.3))}
+const ss=t=>t<=0?0:t>=1?1:t*t*(3-2*t);
+function step(dt,now){
+ for(let i=0;i<N;i++){const p=P[i];if(!p.on){dummy.position.set(0,-99,0);dummy.scale.setScalar(.001);dummy.updateMatrix();IM.setMatrixAt(i,dummy.matrix);continue}
+  if(p.ph==='flow'){p.x+=p.v*dt;p.a+=.35*dt;const r=p.r0*(1-.6*ss((p.x+9)/12));p.y=Math.sin(p.a)*r;p.z=Math.cos(p.a)*r;
+   const passed=RINGS.filter(x=>p.x>x).length;
+   if(p.fate<3&&passed>p.fate){p.ph='fall';p.vy=.2;}
+   if(p.fate===3&&p.x>RINGS[2]+.2){p.ph='go';p.sx=p.x;p.sy=p.y;p.sz=p.z;p.k=0;p.slot=slot%SLOTS.length;slot++}
+   col.copy(cGrey).lerp(cLight,ss((p.x-RINGS[0])/(RINGS[1]-RINGS[0])));if(p.fate===3&&p.x>RINGS[1])col.lerp(cGreen,ss((p.x-RINGS[1])/(RINGS[2]-RINGS[1])));IM.setColorAt(i,col)}
+  else if(p.ph==='fall'){p.x+=p.v*.35*dt;p.vy-=5.5*dt;p.y+=p.vy*dt;p.s-=dt*.9;col.copy(cGrey).lerp(cDead,1-p.s);IM.setColorAt(i,col);if(p.s<=0)p.on=0}
+  else if(p.ph==='go'){p.k=Math.min(p.k+dt/1.1,1);const k=ss(p.k),tx=SLOTS[p.slot],ty=FLOOR+.04+.68;
+   p.x=p.sx+(tx-p.sx)*k;p.y=p.sy+(ty-p.sy)*k+Math.sin(k*Math.PI)*.6;p.z=p.sz*(1-k);p.s=1+.35*k;IM.setColorAt(i,cGreen);
+   if(p.k>=1){p.ph='stand';const f=fig[p.slot];f.on=1;f.t=now;f.p=p;count++;cnt.textContent=count}}
+  else if(p.ph==='stand'){/* голова фигурки */}
+  dummy.position.set(p.x,p.y,p.z);dummy.scale.setScalar(Math.max(p.s,.001));dummy.updateMatrix();IM.setMatrixAt(i,dummy.matrix)}
+ IM.instanceMatrix.needsUpdate=true;IM.instanceColor.needsUpdate=true;
+ fig.forEach(f=>{const target=f.on?1:0;const s=f.b.scale.x+(Math.max(target,.001)-f.b.scale.x)*Math.min(dt*7,1);f.b.scale.setScalar(s);if(!f.on&&f.p){f.p.s-=dt*3;if(f.p.s<=0){f.p.on=0;f.p=null}}});
+ /* все места заняты: пауза и новый набор */
+ if(fig.every(f=>f.on)){hold+=dt;if(hold>2.2){fig.forEach(f=>f.on=0);hold=0}}}
+function size(){const w=innerWidth,h=Math.min(Math.max(innerHeight,760),1200);R.setSize(w,h,false);cam.aspect=w/h;
+ const d=21.5*Math.max(1,1.6/(w/h));cam.position.set(.6,3.6,d);cam.lookAt(.6,2.35,0);cam.updateProjectionMatrix();place()}
+const labels=[...document.querySelectorAll('.lb')];
+function place(){const w=innerWidth,h=Math.min(Math.max(innerHeight,760),1200);S.updateMatrixWorld();cam.updateMatrixWorld();
+ labels.forEach(l=>{const v=new THREE.Vector3(+l.dataset.x,FLOOR-.45,0).applyMatrix4(G.matrixWorld).project(cam);l.style.left=((v.x+1)/2*w)+'px';l.style.top=((1-v.y)/2*h)+'px'})}
+size();addEventListener('resize',size);
+let last=0,tw=0,mx=0,tx=0;addEventListener('pointermove',e=>tx=e.clientX/innerWidth-.5);
+function tick(ms){const now=ms/1000,dt=Math.min(now-last,.05);last=now;
+ tw-=dt;if(tw<=0){newWave();tw=2.3}
+ step(dt,now);mx+=(tx-mx)*.04;G.rotation.y=mx*.18;R.render(S,cam);requestAnimationFrame(tick)}
+if(RM){newWave();for(let i=0;i<400;i++){if(i%110===0)newWave();step(1/30,i/30)}R.render(S,cam)}else requestAnimationFrame(tick);
+</script></body></html>
