@@ -1,0 +1,332 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPS Group — люди для вашего бизнеса</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* SPS · техническая система по рефу Vova (Axon): компания = стойка, направления = модули,
+   подключение = зелёная линия. Зелёный только заливкой, текст на нём чёрный. */
+:root{--g:#09CB2C;--ink:#141414;--mute:#5c5c5a;--bg:#E2E2E0;--paper:#ECECEA;--line:rgba(20,20,20,.14);--dk:#151515;--dk2:#1F1F1F;--pad:clamp(32px,3.4vw,64px);--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:18px;line-height:1.45;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.lab{font:500 14px/1.4 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.ttl{font-family:'Unbounded',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:-.02em;line-height:1.02}
+.btn{display:inline-flex;align-items:center;gap:18px;background:var(--g);color:var(--ink);height:60px;padding:0 6px 0 26px;font-size:18px;font-weight:500;transition:transform .3s var(--ease)}
+.btn i{width:48px;height:48px;background:var(--ink);display:grid;place-items:center}
+.btn i:after{content:'';width:10px;height:10px;border-top:2px solid #fff;border-right:2px solid #fff;transform:translateX(-2px) rotate(45deg)}
+.btn:hover{transform:translateY(-2px)}
+.btn.k{background:var(--ink);color:#fff}.btn.k i{background:var(--g)}.btn.k i:after{border-color:var(--ink)}
+
+/* ШАПКА */
+.hd{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;gap:34px;padding:24px var(--pad);font-size:16px}
+.logo{display:flex;align-items:center;gap:6px;font-weight:600;font-size:22px;margin-right:auto}
+.logo i{display:inline-block;border-radius:50%;background:var(--ink)}
+.logo i:last-of-type{background:var(--g);outline:0}
+.hd nav{display:flex;gap:30px}
+.hd .cta{background:var(--ink);color:#fff;padding:14px 22px;font-size:16px}
+
+/* 1 ПЕРВЫЙ ЭКРАН: стойка = ваша команда, одно место пустое, зелёный модуль от SPS входит в слот */
+.hero{position:relative;height:100vh;min-height:780px;max-height:1100px;overflow:hidden;background:#DCDBDC}
+.hero .obj{position:absolute;left:50%;top:52%;width:min(64vw,1140px);aspect-ratio:4/3;transform:translate(-46%,-50%);will-change:transform}
+.hero .obj img{width:100%;height:100%;display:block;-webkit-mask:radial-gradient(closest-side,#000 78%,transparent);mask:radial-gradient(closest-side,#000 78%,transparent)}
+.hero h1{position:absolute;z-index:2;font-size:clamp(64px,6.4vw,124px)}
+.hero .h1a{left:var(--pad);top:clamp(120px,15vh,170px)}
+.hero .h1b{right:var(--pad);bottom:clamp(130px,17vh,190px);text-align:right}
+.hero .lead{position:absolute;z-index:2;left:var(--pad);top:calc(clamp(120px,15vh,170px) + 2.2*clamp(64px,6.4vw,124px) + 28px);width:22em;font-size:18px;color:var(--mute)}
+.hero .btn{position:absolute;z-index:2;left:var(--pad);bottom:clamp(40px,6vh,64px)}
+.hero .scr{position:absolute;z-index:2;right:var(--pad);bottom:clamp(52px,7vh,76px)}
+/* выноски к предмету */
+.tag{position:absolute;z-index:3;font:500 14px/1.3 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;display:flex;align-items:center;gap:10px;opacity:0;transition:opacity .6s .9s}
+.tag b{width:10px;height:10px;background:var(--ink);flex:none}
+.tag.g b{background:var(--g)}
+.tag u{display:block;height:1px;background:var(--ink);text-decoration:none}
+.ready .tag{opacity:1}
+
+/* 2 ПОЛОСА: SPS начинается там, где вакансия не закрывается */
+.str{position:relative;height:240vh;background:var(--bg)}
+.str .st{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.str .bar{position:absolute;top:50%;left:0;height:30vh;width:78vw;margin-top:-15vh;background:var(--g);transform:skewX(-24deg);will-change:transform}
+.str .bar:after{content:'';position:absolute;right:-1px;top:0;bottom:0;width:22%;background:repeating-linear-gradient(90deg,transparent 0 26px,var(--bg) 26px 44px)}
+.str .q{position:relative;z-index:2;font-size:clamp(48px,4.6vw,88px);text-align:center;max-width:15em}
+.str .q span{display:inline-block;white-space:pre}
+.str .sub{position:absolute;z-index:2;left:50%;bottom:clamp(56px,10vh,110px);transform:translateX(-50%);width:min(560px,80vw);text-align:center;color:var(--mute);transition:opacity .5s}
+
+/* 3 МОДУЛИ: направления подключаются к вашей компании при прокрутке */
+.mods{position:relative;height:620vh;background:var(--paper);border-top:1px solid var(--line)}
+.ms{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:clamp(320px,23vw,420px) minmax(0,1fr) clamp(380px,28vw,500px)}
+.mnav{padding:clamp(48px,7vh,80px) 0 40px var(--pad);display:flex;flex-direction:column;border-right:1px solid var(--line)}
+.mnav h2{font-size:clamp(24px,1.7vw,34px);margin:16px 0 0;padding-right:24px}
+.mnav ol{list-style:none;margin-top:auto}
+.mnav button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:14px;align-items:baseline;width:100%;padding:16px 18px;font-size:18px;font-weight:500;transition:background .3s,color .3s}
+.mnav button span{font:14px 'JetBrains Mono',monospace;color:var(--mute);transition:color .3s}
+.mnav button i{margin-left:auto;width:10px;height:10px;flex:none;align-self:center;border:1.5px solid var(--line);transition:background .3s,border-color .3s}
+.mnav li.ok button i{background:var(--g);border-color:var(--g)}
+.mnav li.on button{background:var(--ink);color:#fff}
+.mnav li.on button span{color:rgba(255,255,255,.6)}
+.mcv{position:relative}
+#mc{position:absolute;inset:0;width:100%;height:100%;display:block}
+.mcv .lab{position:absolute;left:32px;bottom:40px}
+.mtx{border-left:1px solid var(--line);padding:clamp(48px,7vh,80px) var(--pad) 40px 40px;display:flex;flex-direction:column}
+.mtx .nn{font:500 16px 'JetBrains Mono',monospace}
+.mtx .nn b{font-family:'Unbounded',sans-serif;font-size:56px;font-weight:500;letter-spacing:-.03em;margin-right:6px}
+.mtx .bd{margin-top:auto;transition:opacity .35s,transform .35s var(--ease)}
+.mtx .bd.out{opacity:0;transform:translateY(14px)}
+.mtx h3{font-size:clamp(26px,1.9vw,34px)}
+.mtx p{margin-top:16px;color:var(--mute)}
+.mtx ul{list-style:none;margin-top:22px;border-top:1px solid var(--line)}
+.mtx li{font-size:16px;padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.mtx li:before{content:'';width:8px;height:8px;margin-top:8px;background:var(--ink);flex:none}
+.mtx .btn{margin-top:28px;align-self:flex-start}
+
+/* 4 КАК РАБОТАЕМ: отклики проходят проверку, на ваше место выходит один проверенный */
+.proc{position:relative;height:320vh;background:var(--dk);color:#fff}
+.ps{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:clamp(56px,9vh,96px) var(--pad) clamp(40px,6vh,64px)}
+.ps .top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.ps h2{font-size:clamp(40px,3.6vw,68px);max-width:12em}
+.ps .top p{max-width:24em;color:rgba(255,255,255,.62)}
+.ps .lab{color:rgba(255,255,255,.62)}
+.pw{position:relative;flex:1;margin-top:clamp(32px,5vh,56px);display:grid;grid-template-columns:4fr 5fr 3fr;gap:16px}
+.pp{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.pp.a{background:var(--dk2)}
+.pp.c{background:var(--bg);color:var(--ink)}
+.pp.c .lab{color:var(--mute)}
+.pp h4{font-size:20px;font-weight:600;margin-top:6px}
+.pp .gl{position:absolute;top:24px;font:500 14px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.62);transform:translateX(-50%);white-space:nowrap}
+#pc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* 5 ЗАЯВКА: четыре направления сходятся в вашу команду */
+.fin{position:relative;height:110vh;min-height:860px;background:#DCDBDC;overflow:hidden;text-align:center}
+.fin .tx{position:relative;z-index:2;padding-top:clamp(80px,12vh,140px)}
+.fin h2{font-size:clamp(48px,4.4vw,84px)}
+.fin p{margin:20px auto 0;max-width:30em;color:var(--mute)}
+.fin .btn{margin-top:32px}
+.fin svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.fin .obj{position:absolute;left:50%;bottom:-14%;width:min(54vw,920px);transform:translateX(-50%)}
+.fin .obj img{width:100%;display:block;-webkit-mask:radial-gradient(closest-side,#000 80%,transparent);mask:radial-gradient(closest-side,#000 80%,transparent)}
+.fin .src{margin:0;position:absolute;z-index:2;font:500 14px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
+
+/* ПОДВАЛ: карта сайта от Славы */
+.ft{background:var(--dk);color:#fff;padding:72px var(--pad) 40px}
+.ft .cols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:32px}
+.ft h5{font-size:16px;font-weight:600;margin-bottom:16px}
+.ft li{list-style:none;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;line-height:1.35}
+.ft .bt{display:flex;justify-content:space-between;align-items:flex-end;margin-top:72px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14)}
+.ft .bt b{font-family:'Unbounded',sans-serif;font-size:30px}
+.ft .bt a{font-size:22px}
+@media (prefers-reduced-motion:reduce){.str .bar{display:none}}
+</style></head><body>
+
+<!-- 1 ПЕРВЫЙ ЭКРАН -->
+<section class="hero" id="hero">
+<header class="hd"><a class="logo" href="#hero" aria-label="SPS Group"><i style="width:7px;height:7px"></i><i style="width:10px;height:10px"></i><i style="width:13px;height:13px"></i>&nbsp;SPS Group</a>
+<nav><a href="#uslugi">Услуги</a><a href="#kak">Как&nbsp;работаем</a><a href="#o-nas">О&nbsp;компании</a><a href="#rabota">Работа в&nbsp;SPS</a></nav><a href="tel:+74732296544">+7 473 229-65-44</a><a class="cta" href="#zayavka">Оставить заявку</a></header>
+<div class="obj" id="hobj"><img src="img/obj-C-stojka.png" alt="Стойка с модулями: одно место пустое, зелёный модуль входит в него"></div>
+<h1 class="ttl h1a">Нужны<br>люди?</h1>
+<p class="lead">Подбор, персонал на&nbsp;смену, клининг и&nbsp;кадровый консалтинг. Освободилось место в&nbsp;команде, ставим человека мы.</p>
+<h1 class="ttl h1b" aria-hidden="true">Найдём.</h1>
+<a class="btn" href="#zayavka">Обсудить задачу<i></i></a>
+<p class="lab scr">Листайте: как это устроено</p>
+<p class="tag" id="t1"><u style="width:90px"></u><b></b>Ваша команда</p>
+<p class="tag g" id="t2"><u style="width:90px"></u><b></b>Сотрудник от&nbsp;SPS</p>
+</section>
+
+<!-- 2 ПОЛОСА -->
+<section class="str" id="str"><div class="st">
+<div class="bar" id="bar"></div>
+<h2 class="ttl q" id="q">SPS начинается там, где вакансия не&nbsp;закрывается</h2>
+<p class="sub" id="qs">Объявление висит, отклики не&nbsp;те, люди уходят через месяц. Эту работу берём на&nbsp;себя.</p>
+</div></section>
+
+<!-- 3 МОДУЛИ -->
+<section class="mods" id="uslugi"><div class="ms">
+<div class="mnav"><p class="lab">Направления SPS</p><h2 class="ttl">Подключите только то, что нужно</h2>
+<ol id="mn"><li class="on"><button type="button"><span>00</span>Ваша компания<i hidden></i></button></li><li><button type="button"><span>01</span>Подбор<i></i></button></li><li><button type="button"><span>02</span>Персонал на&nbsp;смену<i></i></button></li><li><button type="button"><span>03</span>Клининг<i></i></button></li><li><button type="button"><span>04</span>Консалтинг<i></i></button></li></ol></div>
+<div class="mcv"><canvas id="mc" aria-hidden="true"></canvas><p class="lab" id="mst">Подключено: 0 из&nbsp;4</p></div>
+<aside class="mtx" aria-live="polite"><p class="nn" id="nn"><b>00</b>/ 04</p>
+<div class="bd" id="mb"><h3 class="ttl" id="mh"></h3><p id="mp"></p><ul id="mu"></ul><a class="btn" id="mbt" href="#zayavka">Обсудить задачу<i></i></a></div></aside>
+</div></section>
+
+<!-- 4 КАК РАБОТАЕМ -->
+<section class="proc" id="kak"><div class="ps">
+<div class="top"><div><p class="lab">Как работаем</p><h2 class="ttl" style="margin-top:16px">Вы встречаете только проверенных</h2></div><p>Отклики, опыт, собеседование и&nbsp;документы проверяем мы. К&nbsp;вам выходит тот, кто прошёл всё.</p></div>
+<div class="pw" id="pw">
+<div class="pp a" id="pa"><p class="lab">01</p><h4>Собираем отклики</h4></div>
+<div class="pp b" id="pb"><span class="gl" data-g="0">Опыт</span><span class="gl" data-g="1">Собеседование</span><span class="gl" data-g="2">Документы</span><p class="lab">02</p><h4>Проверяем каждого</h4></div>
+<div class="pp c" id="pcc"><p class="lab">03</p><h4 id="ph">Место ждёт человека</h4></div>
+<canvas id="pc" aria-hidden="true"></canvas>
+</div></div></section>
+
+<!-- 5 ЗАЯВКА -->
+<section class="fin" id="zayavka">
+<svg id="fl" aria-hidden="true"></svg>
+<div class="tx"><p class="lab">Заявка</p><h2 class="ttl" style="margin-top:16px">Закроем место<br>в&nbsp;вашей команде</h2><p>Расскажите, кого не&nbsp;хватает. Перезвоним и&nbsp;скажем, сколько это стоит и&nbsp;когда человек выйдет.</p><a class="btn" href="tel:+74732296544">Оставить заявку<i></i></a></div>
+<p class="src" style="left:var(--pad)">01 Подбор</p><p class="src" style="left:var(--pad)">02 Персонал</p>
+<p class="src" style="right:var(--pad)">03 Клининг</p><p class="src" style="right:var(--pad)">04 Консалтинг</p>
+<div class="obj"><img src="img/obj-C-stojka.png" alt=""></div>
+</section>
+
+<!-- ПОДВАЛ -->
+<footer class="ft" id="o-nas"><div class="cols">
+<div><h5>О&nbsp;компании</h5><ul><li>Группа компаний</li><li>История</li><li>Новости и&nbsp;проекты</li></ul><h5 style="margin-top:32px" id="rabota">Работа в&nbsp;SPS GROUP</h5><h5>Контакты</h5></div>
+<div><h5>Подбор персонала</h5><ul><li>Специалисты и&nbsp;руководители</li><li>Массовый рекрутинг</li><li>Прямой поиск (executive search)</li><li>Промышленный рекрутинг</li><li>Финансовый рекрутинг</li><li>Аутсорсинг рекрутинга</li></ul></div>
+<div><h5>Предоставление персонала</h5><ul><li>Производство, склад, логистика</li><li>Торговля</li><li>Гостиницы, санатории, базы отдыха</li><li>Аутстаффинг</li><li>Сопровождение КДО, ВУ и&nbsp;охраны труда</li></ul></div>
+<div><h5>Коммерческий клининг</h5><ul><li>Организация клининга</li><li>Аудит клининговых процессов</li></ul></div>
+<div><h5>Консалтинг</h5><ul><li>Оценка персонала</li><li>Мотивация и&nbsp;оплата труда</li><li>Кадровые процессы</li><li>Экспертная группа</li></ul></div>
+<div><h5>Связаться</h5><ul><li>+7 473 229-65-44</li><li>Воронеж</li></ul></div>
+</div><div class="bt"><b>SPS Group</b><a href="tel:+74732296544">+7 473 229-65-44</a></div></footer>
+
+<script src="three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,out=t=>1-Math.pow(1-t,3);
+const nb=s=>s.replace(/ (в|и|с|к|на|за|по|о|а|не|из|от|до|для|без|то) /g,' $1 ');
+/* прогресс прокрутки липкой секции: 0 когда секция пришла, 1 когда уходит */
+const prog=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight))};
+
+/* ---------- 1 первый экран: выноски к предмету и лёгкий параллакс ---------- */
+const hobj=$('#hobj');
+function placeTags(){const r=hobj.getBoundingClientRect(),hr=$('#hero').getBoundingClientRect();
+ const pt=(fx,fy)=>[r.left+r.width*fx-hr.left,r.top+r.height*fy-hr.top];
+ const [ax,ay]=pt(.84,.27),t1=$('#t1');t1.style.left=ax+'px';t1.style.top=(ay-t1.offsetHeight/2)+'px';
+ const [bx,by]=pt(.68,.62),t2=$('#t2');t2.style.left=bx+'px';t2.style.top=(by-t2.offsetHeight/2)+'px'}
+addEventListener('load',()=>{placeTags();$('#hero').classList.add('ready')});addEventListener('resize',placeTags);
+
+/* ---------- 2 полоса проходит и проявляет фразу ---------- */
+const q=$('#q');{const words=q.textContent.split(' ');q.innerHTML=words.map(w=>'<span class="w">'+[...w].map(c=>'<span>'+c+'</span>').join('')+'</span>').join(' ')}
+const chars=$$('#q span span'),GLY='АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ0123456789/#';let cx=[];
+const measure=()=>{cx=chars.map(c=>{const r=c.getBoundingClientRect();return r.left+r.width/2})};
+addEventListener('resize',measure);document.fonts.ready.then(measure);measure();
+function stripe(){const p=prog($('#str')),bar=$('#bar'),W=innerWidth,bw=bar.offsetWidth;
+ const x=-bw-.3*W+p*1.55*(W+bw*1.2);bar.style.transform='translateX('+x+'px) skewX(-24deg)';
+ const edge=x+bw;/* правый край полосы: левее него текст уже проявлен */
+ chars.forEach((c,i)=>{const d=edge-cx[i];
+  if(d>140){c.style.opacity=1;if(c.dataset.o)c.textContent=c.dataset.o}
+  else if(d>-60){c.style.opacity=1;if(!c.dataset.o)c.dataset.o=c.textContent;c.textContent=GLY[(i*7+Math.floor(performance.now()/60))%GLY.length]}
+  else{c.style.opacity=0;if(c.dataset.o)c.textContent=c.dataset.o}});
+ $('#qs').style.opacity=clamp((p-.55)*5)}
+
+/* ---------- 3 модули ---------- */
+const STEP=[
+ {h:'Подключите только то, что нужно',p:'Ваша компания в центре. Каждое направление SPS подключается к ней отдельно: берёте одно или все четыре.',u:[],b:['Обсудить задачу','#zayavka']},
+ {h:'Вакансия висит месяцами',p:'Ищем специалистов, руководителей и рабочих. Вы получаете кандидатов, которых мы уже проверили, и выбираете из них.',u:['Специалисты и руководители','Массовый рекрутинг','Прямой поиск (executive search)','Промышленный рекрутинг','Финансовый рекрутинг','Аутсорсинг рекрутинга'],b:['Рассчитать подбор','#zayavka']},
+ {h:'Не хватает рук на смену',p:'Выводим людей на ваш объект. Наём, документы и замены на нашей стороне.',u:['Производство, склад, логистика','Торговля','Гостиницы, санатории, базы отдыха','Аутстаффинг','Сопровождение КДО, ВУ и охраны труда'],b:['Рассчитать персонал','#zayavka']},
+ {h:'Уборка без контроля',p:'Организуем уборку вашего объекта или проверим, как она устроена сейчас, и скажем, что изменить.',u:['Организация клининга','Аудит клининговых процессов'],b:['Обсудить объект','#zayavka']},
+ {h:'В кадрах нет порядка',p:'Оцениваем людей и процессы, настраиваем оплату так, чтобы людям было выгодно работать лучше.',u:['Оценка персонала','Мотивация и оплата труда','Оценка и оптимизация кадровых процессов','Экспертная группа'],b:['Обсудить задачу','#zayavka']}];
+let cur=-1;
+function showStep(i){if(i===cur)return;const first=cur<0;cur=i;$$('#mn li').forEach((l,j)=>l.classList.toggle('on',i===j));
+ const bd=$('#mb'),fill=()=>{const d=STEP[i];$('#nn').innerHTML='<b>'+String(i).padStart(2,'0')+'</b>/ 04';$('#mh').textContent=nb(d.h);$('#mp').textContent=nb(d.p);
+  $('#mu').innerHTML=d.u.map(x=>'<li>'+nb(x)+'</li>').join('');$('#mu').style.display=d.u.length?'':'none';const b=$('#mbt');b.firstChild.textContent=d.b[0];b.href=d.b[1];bd.classList.remove('out')};
+ if(first)fill();else{bd.classList.add('out');setTimeout(fill,260)}}
+const mods=$('#uslugi');
+const goStep=i=>{const top=mods.offsetTop,span=mods.offsetHeight-innerHeight;scrollTo({top:top+span*((i+.6)/5),behavior:'smooth'})};
+$$('#mn button').forEach((b,i)=>b.addEventListener('click',()=>goStep(i)));
+
+THREE.ColorManagement.legacyMode=false;
+const mc=$('#mc'),R=new THREE.WebGLRenderer({canvas:mc,antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.outputEncoding=THREE.sRGBEncoding;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+const S=new THREE.Scene(),cam=new THREE.OrthographicCamera(-1,1,1,-1,.1,100);cam.position.set(12,12.6,12);cam.lookAt(0,.35,0);
+(function(){const e=new THREE.Scene(),room=new THREE.Mesh(new THREE.BoxGeometry(20,12,20),new THREE.MeshBasicMaterial({color:0x7d7d7b,side:THREE.BackSide}));e.add(room);
+ const lamp=(w,h,x,y,z,k)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(k,k,k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);e.add(m)};
+ lamp(10,5,-4,7,4,3.2);lamp(3,9,8,3,-3,1.8);lamp(12,2,2,2,9.5,2);
+ S.environment=new THREE.PMREMGenerator(R).fromScene(e,.04).texture})();
+S.add(new THREE.HemisphereLight(0xffffff,0x9a9a98,.35));
+const sun=new THREE.DirectionalLight(0xffffff,.75);sun.position.set(-5,12,7);sun.castShadow=true;Object.assign(sun.shadow.camera,{left:-9,right:9,top:9,bottom:-9});sun.shadow.mapSize.set(2048,2048);sun.shadow.radius=7;S.add(sun);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:.12}));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;S.add(ground);
+const W=1.75,CW=2.3,TH=.46,A=4.1,GREEN=new THREE.Color(0x09CB2C),GREY=new THREE.Color(0x9b9b99);
+/* текстуры: надпись на крышке и «панели» на боках, как у стоечных модулей */
+function canvasTex(w,h,draw){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;return t}
+const sideTex=canvasTex(512,140,(c,w,h)=>{c.fillStyle='#F1F1EF';c.fillRect(0,0,w,h);c.strokeStyle='rgba(20,20,20,.22)';c.lineWidth=3;c.strokeRect(34,30,190,80);c.strokeRect(288,30,190,80);
+ c.fillStyle='rgba(20,20,20,.35)';c.fillRect(100,64,58,8);c.fillRect(354,64,58,8);c.fillStyle='rgba(20,20,20,.5)';[[18,18],[w-18,18],[18,h-18],[w-18,h-18]].forEach(([x,y])=>{c.beginPath();c.arc(x,y,5,0,7);c.fill()})});
+const plain=new THREE.MeshStandardMaterial({color:0xF1F1EF,roughness:.62,envMapIntensity:.85}),sideM=new THREE.MeshStandardMaterial({map:sideTex,roughness:.62,envMapIntensity:.85});
+function topTex(lines,big){return canvasTex(1024,1024,(c,w,h)=>{c.fillStyle='#F4F4F2';c.fillRect(0,0,w,h);c.strokeStyle='rgba(20,20,20,.16)';c.lineWidth=4;c.strokeRect(40,40,w-80,h-80);
+ c.fillStyle='#141414';c.textAlign='center';c.textBaseline='middle';const fs=big?120:116;c.font='600 '+fs+'px Unbounded, sans-serif';
+ lines.forEach((l,i)=>{let s=fs;c.font='600 '+s+'px Unbounded, sans-serif';while(c.measureText(l).width>w-170&&s>40){s-=4;c.font='600 '+s+'px Unbounded, sans-serif'}c.fillText(l,w/2,h/2+(i-(lines.length-1)/2)*fs*1.12)});
+ })}
+const edgeM=new THREE.LineBasicMaterial({color:0x141414,transparent:true,opacity:.22});
+function tier(w,h,top){const g=new THREE.BoxGeometry(w,h,w),m=new THREE.Mesh(g,[sideM,sideM,top||plain,plain,sideM,sideM]);m.castShadow=m.receiveShadow=true;m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g),edgeM));return m}
+const MOD=[{n:['ВАША','КОМПАНИЯ'],x:0,z:0,w:CW},{n:['ПОДБОР'],x:-A,z:0},{n:['ПЕРСОНАЛ'],x:0,z:-A},{n:['КЛИНИНГ'],x:0,z:A},{n:['КОНСАЛТИНГ'],x:A,z:0}];
+const pickables=[];
+function buildModules(){MOD.forEach((d,i)=>{const w=d.w||W,g=new THREE.Group();g.position.set(d.x,0,d.z);
+ const base=tier(w,TH);base.position.y=TH/2;g.add(base);
+ const seamM=new THREE.MeshStandardMaterial({color:GREY.clone(),roughness:.5,emissive:new THREE.Color(0),envMapIntensity:.6});
+ const seam=new THREE.Mesh(new THREE.BoxGeometry(w*.97,.07,w*.97),seamM);seam.position.y=TH+.035;g.add(seam);
+ const topM=new THREE.MeshStandardMaterial({map:topTex(d.n,i===0),roughness:.6,envMapIntensity:.85});
+ const top=tier(w,TH,topM);top.position.y=TH*1.5+.07;g.add(top);
+ /* пунктирный контур на полу: место модуля в системе */
+ const r=w/2+.32,pts=[[-r,-r],[r,-r],[r,r],[-r,r],[-r,-r]].map(([x,z])=>new THREE.Vector3(x,.005,z));
+ const dl=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineDashedMaterial({color:0x141414,transparent:true,opacity:.28,dashSize:.12,gapSize:.09}));dl.computeLineDistances();g.add(dl);
+ Object.assign(d,{g,top,seamM,lift:0,on:0});S.add(g);[base,top].forEach(m=>{m.userData.i=i;pickables.push(m)})});
+ /* центр: на каждой стороне своя зелёная планка, она загорается, когда сторона подключена */
+ const c=MOD[0];c.sides=[];[[-1,0],[0,-1],[0,1],[1,0]].forEach(([sx,sz])=>{const m=new THREE.Mesh(new THREE.BoxGeometry(sx?.05:CW*.7,.075,sz?.05:CW*.7),new THREE.MeshStandardMaterial({color:GREY.clone(),roughness:.5}));
+  m.position.set(sx*(CW*.485+.02),TH+.035,sz*(CW*.485+.02));c.g.add(m);c.sides.push(m)});
+ /* линии подключения по полу от модуля к центру */
+ MOD.slice(1).forEach(d=>{const dir=new THREE.Vector3(-Math.sign(d.x),0,-Math.sign(d.z)),start=new THREE.Vector3(d.x,0,d.z).addScaledVector(dir,W/2+.32),end=dir.clone().multiplyScalar(-(CW/2+.32)),L=start.distanceTo(end);
+  const mat=new THREE.MeshBasicMaterial({color:GREEN}),ln=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),mat);ln.visible=false;S.add(ln);
+  const nodeG=new THREE.BoxGeometry(.2,.04,.2),n1=new THREE.Mesh(nodeG,mat),n2=new THREE.Mesh(nodeG,mat);n1.position.copy(start).setY(.02);n2.position.copy(end).setY(.02);n1.visible=n2.visible=false;S.add(n1,n2);
+  Object.assign(d,{dir,start,L,ln,n1,n2})})}
+function sizeM(){const w=mc.clientWidth,h=mc.clientHeight;R.setSize(w,h,false);const asp=w/h,half=Math.max(3.9,5.2/asp);cam.left=-half*asp;cam.right=half*asp;cam.top=half;cam.bottom=-half;cam.updateProjectionMatrix()}
+const ray=new THREE.Raycaster(),mp=new THREE.Vector2();let hov=-1;
+mc.addEventListener('pointermove',e=>{const r=mc.getBoundingClientRect();mp.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mp,cam);const h=ray.intersectObjects(pickables,false)[0];hov=h?h.object.userData.i:-1;mc.style.cursor=hov>=0?'pointer':''});
+mc.addEventListener('pointerleave',()=>hov=-1);
+mc.addEventListener('click',()=>{if(hov>=0)goStep(hov)});
+function modules(dt){const s=prog(mods)*5,step=Math.min(4,Math.floor(s));showStep(step);let n=0;
+ MOD.forEach((d,i)=>{if(i===0)return;const k=out(clamp((s-i)/.42));/* линия дорисовывается в первой половине шага */
+  d.ln.visible=k>0;if(k>0){const len=d.L*k;d.ln.scale.set(d.dir.x?len:.13,.03,d.dir.z?len:.13);d.ln.position.copy(d.start).addScaledVector(d.dir,len/2).setY(.016)}
+  d.n1.visible=k>0;d.n2.visible=k>=1;
+  const on=k>=1?1:0;d.on+=(on-d.on)*Math.min(dt*8,1);if(on)n++;
+  d.seamM.color.copy(GREY).lerp(GREEN,d.on);MOD[0].sides[i-1].material.color.copy(GREY).lerp(GREEN,d.on)});
+ MOD.forEach((d,i)=>{const t=(step===i||hov===i)?1:0;d.lift+=(t-d.lift)*Math.min(dt*6,1);d.top.position.y=TH*1.5+.07+d.lift*.34});
+ $('#mst').textContent='Подключено: '+n+' из 4';$$('#mn li').forEach((l,j)=>l.classList.toggle('ok',j>0&&MOD[j].on>.5))}
+
+/* ---------- 4 отбор: отклики проходят три проверки, один встаёт на место ---------- */
+const pc=$('#pc'),px=pc.getContext('2d'),N=64;let PR={},BARS=[];
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+const fates=(()=>{const f=[];for(let i=0;i<N;i++)f.push(i<36?0:i<54?1:i<63?2:3);return f.map((v,i)=>[rnd(i+9),v]).sort((a,b)=>a[0]-b[0]).map(a=>a[1])})();
+function sizeP(){const pw=$('#pw').getBoundingClientRect(),dpr=Math.min(devicePixelRatio,2);pc.width=pw.width*dpr;pc.height=pw.height*dpr;px.setTransform(dpr,0,0,dpr,0,0);
+ const rel=el=>{const r=el.getBoundingClientRect();return{x:r.left-pw.left,y:r.top-pw.top,w:r.width,h:r.height}};
+ PR={a:rel($('#pa')),b:rel($('#pb')),c:rel($('#pcc')),W:pw.width,H:pw.height};
+ PR.g=[.2,.5,.8].map(f=>PR.b.x+PR.b.w*f);$$('.gl').forEach((l,i)=>l.style.left=(PR.b.w*[.2,.5,.8][i])+'px');
+ const cols=8,rows=8,cw=(PR.a.w-80)/cols,ch=(PR.a.h-150)/rows;
+ BARS=[...Array(N)].map((_,i)=>({sx:PR.a.x+40+(i%cols)*cw+rnd(i)*cw*.3,sy:PR.a.y+40+Math.floor(i/cols)*ch+rnd(i+3)*ch*.3,f:fates[i],d:rnd(i+5)*.12,lane:(rnd(i+7)-.5)}));
+ PR.slot={w:Math.min(PR.c.w*.5,180),h:Math.min(PR.c.w*.5,180)*.42};PR.slot.x=PR.c.x+PR.c.w/2-PR.slot.w/2;PR.slot.y=PR.c.y+PR.c.h*.36}
+const mix=(a,b,k)=>a+(b-a)*k;
+function proc(){const p=prog($('#kak')),{a,b,c,g,slot}=PR;if(!slot)return;px.clearRect(0,0,PR.W,PR.H);
+ const midY=b.y+b.h*.46;
+ /* место у вас: пунктир, пока его не заняли */
+ const done=clamp((p-.8)/.12);
+ px.setLineDash([8,6]);px.strokeStyle='rgba(20,20,20,'+(.55*(1-done))+')';px.lineWidth=2;px.strokeRect(slot.x,slot.y,slot.w,slot.h);px.setLineDash([]);
+ px.fillStyle='rgba(20,20,20,.55)';px.font='500 14px JetBrains Mono, monospace';px.textAlign='center';px.fillText(done<1?'МЕСТО У ВАС':'',slot.x+slot.w/2,slot.y-16);
+ /* линии проверок */
+ g.forEach(x=>{px.strokeStyle='rgba(255,255,255,.18)';px.setLineDash([4,6]);px.beginPath();px.moveTo(x,b.y+60);px.lineTo(x,b.y+b.h-90);px.stroke();px.setLineDash([])});
+ BARS.forEach((r,i)=>{const appear=clamp((p-r.d*1.2)/.14);if(appear<=0)return;
+  let x=mix(-40,r.sx,out(appear)),y=r.sy,w=34,h=12,al=appear,col=[110,110,108];
+  const u=clamp((p-.26-r.d)/.4);/* поток через проверки */
+  if(u>0){const tx=g[2]+140,lx=mix(r.sx,tx,ease(u));x=lx;y=mix(r.sy,midY+r.lane*Math.max(0,b.h*.5*(1-ease(u)*1.6)),clamp(ease(u)*1.4));
+   if(x>g[0])col=[205,205,203];
+   if(r.f<3&&x>g[r.f]){const over=x-g[r.f];x=g[r.f]+over*.25;y+=over*.9;al=clamp(1-over/70)}}
+  if(r.f===3){const v=clamp((p-.7)/.14);if(v>0){const e=ease(v);x=mix(x,slot.x,e);y=mix(y,slot.y,e);w=mix(w,slot.w,e);h=mix(h,slot.h,e);col=[Math.round(mix(205,9,e)),Math.round(mix(205,203,e)),Math.round(mix(203,44,e))]}}
+  if(al<=0)return;px.globalAlpha=al;px.fillStyle='rgb('+col+')';px.fillRect(x,y,w,h);px.globalAlpha=1});
+ if(done>=1){px.fillStyle='#141414';px.font='600 16px Inter Tight, sans-serif';px.textAlign='center';px.fillText('Сотрудник от SPS',slot.x+slot.w/2,slot.y+slot.h/2+6)}
+ $('#ph').textContent=done>=1?'Место занято':'Место ждёт человека'}
+
+/* ---------- 5 линии сходятся в стойку ---------- */
+const fl=$('#fl');
+function sizeF(){const f=$('#zayavka').getBoundingClientRect(),o=$('#zayavka .obj').getBoundingClientRect(),W=f.width,H=f.height,ox=o.left-f.left,oy=o.top-f.top,ow=o.width,oh=o.height;
+ /* линии от направлений к торцам стойки: слева к левой плите, справа к правой */
+ const L=[{y:H*.5,ex:ox+ow*.31,ey:oy+oh*.44,mx:W*.2},{y:H*.66,ex:ox+ow*.31,ey:oy+oh*.54,mx:W*.16},{y:H*.5,ex:ox+ow*.865,ey:oy+oh*.40,mx:W*.8},{y:H*.66,ex:ox+ow*.865,ey:oy+oh*.50,mx:W*.84}];
+ fl.setAttribute('viewBox','0 0 '+W+' '+H);
+ fl.innerHTML=L.map((l,i)=>{const x0=i<2?0:W;return '<path pathLength="1" d="M'+x0+' '+l.y+' H'+l.mx+' V'+l.ey+' H'+l.ex+'" fill="none" stroke="#141414" stroke-width="2" stroke-dasharray="1" stroke-dashoffset="1"/><rect x="'+(l.ex-7)+'" y="'+(l.ey-7)+'" width="14" height="14" fill="#09CB2C" opacity="0"/>'}).join('');
+ $$('#zayavka .src').forEach((e,i)=>e.style.top=(L[i].y-34)+'px')}
+function fin(){const r=$('#zayavka').getBoundingClientRect(),p=clamp((innerHeight-r.top)/(innerHeight*.95));
+ $$('#fl path').forEach((pa,i)=>{const k=clamp((p-.25-i*.06)/.45);pa.setAttribute('stroke-dashoffset',1-k);pa.nextSibling.setAttribute('opacity',k>=1?1:0)})}
+
+/* ---------- цикл ---------- */
+function sizeAll(){sizeM();sizeP();sizeF();measure()}
+let last=0;
+function loop(ms){const dt=Math.min((ms-last)/1000,.1);last=ms;
+ const hp=clamp(scrollY/innerHeight);hobj.style.transform='translate(-46%,calc(-50% + '+(hp*90)+'px)) scale('+(1-hp*.06)+')';
+ stripe();modules(RM?1:dt);proc();fin();R.render(S,cam);requestAnimationFrame(loop)}
+const fontsOk=Promise.race([document.fonts.load('600 64px Unbounded'),new Promise(r=>setTimeout(r,2500))]);
+fontsOk.then(()=>document.fonts.load('500 44px "JetBrains Mono"')).catch(()=>{}).then(()=>{buildModules();sizeAll();addEventListener('resize',sizeAll);requestAnimationFrame(loop)});
+</script></body></html>
