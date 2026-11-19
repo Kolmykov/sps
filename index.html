@@ -367,11 +367,11 @@ footer p.lab{font:400 13px 'JetBrains Mono';margin:0 0 14px}
 <h2 class="h2">Отвечают люди с&nbsp;именами</h2>
 <ol class="crew rv" id="crew">
 <li class="boss" data-f="0"><span class="n">01</span><b>Вячеслав Боричевский</b><span><em>Генеральный директор SPS&nbsp;Group</em>Вы&nbsp;знаете, кто&nbsp;ведёт ваш проект, и&nbsp;можете позвонить ему напрямую.</span></li>
-<li data-f="1"><span class="n">02</span><b>Оценка персонала</b><span><em>Эксперт: имя от&nbsp;клиента</em>Опыт и&nbsp;проекты эксперта</span></li>
-<li data-f="2"><span class="n">03</span><b>Мотивация и&nbsp;оплата</b><span><em>Эксперт: имя от&nbsp;клиента</em>Опыт и&nbsp;проекты эксперта</span></li>
-<li data-f="3"><span class="n">04</span><b>Кадровые процессы</b><span><em>Эксперт: имя от&nbsp;клиента</em>Опыт и&nbsp;проекты эксперта</span></li>
+<li data-f="1"><span class="n">02</span><b>Оценка персонала</b><span><em>Эксперт по&nbsp;оценке персонала</em>Оценивает кандидатов и&nbsp;сотрудников, чтобы вы&nbsp;решали на&nbsp;фактах.</span></li>
+<li data-f="2"><span class="n">03</span><b>Мотивация и&nbsp;оплата</b><span><em>Эксперт по&nbsp;мотивации и&nbsp;оплате труда</em>Настраивает оплату так, чтобы людям было выгодно работать лучше.</span></li>
+<li data-f="3"><span class="n">04</span><b>Кадровые процессы</b><span><em>Эксперт по&nbsp;кадровым процессам</em>Наводит порядок в&nbsp;найме, документах и&nbsp;учёте.</span></li>
 </ol>
-<div class="face" id="face" aria-hidden="true"><img alt=""><span class="lab">Фото от&nbsp;клиента</span></div>
+<div class="face" id="face" aria-hidden="true"><img alt=""></div>
 </div></section>
 
 <!-- 8 НОВОСТИ И ВАКАНСИИ -->
@@ -405,10 +405,9 @@ footer p.lab{font:400 13px 'JetBrains Mono';margin:0 0 14px}
 <div><p class="lab">Услуги</p><a href="#zadachi">Подбор персонала</a><a href="#zadachi">Предоставление персонала</a><a href="#zadachi">Коммерческий клининг</a><a href="#zadachi">Консалтинг</a></div>
 <div><p class="lab">Компания</p><a href="#">О&nbsp;группе</a><a href="#spec">Спецпредложения</a><a href="#keisy">Кейсы</a><a href="#">Новости</a></div>
 <div><p class="lab">Кандидатам</p><a href="#rabota">Работа в&nbsp;SPS Group</a><a href="#">Вакансии</a></div>
-<div><p class="lab">Контакты</p><p>Адрес и&nbsp;часы работы от&nbsp;клиента</p><p>Почта от&nbsp;клиента</p></div>
+<div><p class="lab">Контакты</p><a href="tel:+74732296544">+7 473 229-65-44</a><p>Воронеж</p></div>
 </div><div class="cp"><span>© SPS Group</span><a href="#">Политика обработки персональных данных</a></div>
 <div class="wm" id="wm" aria-hidden="true"><span>S</span><span class="wc"><canvas id="wcv" width="600" height="820"></canvas></span><span>PS</span></div></footer>
-<p class="note">Рабочий макет. Подтвердить у&nbsp;клиента: «17&nbsp;лет», телефон, условия оплаты (за&nbsp;вакансию, абонемент, за&nbsp;час), состав спецпредложения, формулу калькулятора, роль «Кадровой защиты». От&nbsp;клиента нужны: реальные кейсы, фото команды, имена экспертов, контакты, PDF. Люди на&nbsp;странице сгенерированы и&nbsp;будут заменены фотографиями сотрудников SPS. Формы проверяют телефон и&nbsp;показывают состояние «принято», данные никуда не&nbsp;уходят.</p>
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -505,7 +504,7 @@ function kase(n,first){const c=CASES[n];cli.forEach((l,i)=>l.classList.toggle('o
  if(!first)requestAnimationFrame(()=>requestAnimationFrame(()=>is.forEach(i=>i.classList.remove('dn'))))}
 kase(0,true);new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){o.disconnect();ct.querySelectorAll('i').forEach(i=>i.classList.remove('dn'))}}),{threshold:.4}).observe(ct);
 cli.forEach((l,i)=>l.querySelector('button').addEventListener('click',()=>{if(!l.classList.contains('on'))kase(i)}));
-/* команда: наведение на имя показывает человека у курсора (до фото от клиента — силуэт) */
+/* команда: наведение на имя показывает человека у курсора */
 const face=$('#face');const fimg=face.querySelector('img'),FACES=['img/p-boss.jpg','img/p-hr.jpg','img/p-analyst.jpg','img/p-expert2.jpg'];FACES.forEach(u=>{new Image().src=u});const crew=$$('#crew li');let fx=0,fy=0,tx2=0,ty2=0;
 
 crew.forEach(l=>{l.addEventListener('mouseenter',()=>{fimg.src=FACES[+l.dataset.f];face.classList.add('on')});l.addEventListener('mouseleave',()=>face.classList.remove('on'))});
